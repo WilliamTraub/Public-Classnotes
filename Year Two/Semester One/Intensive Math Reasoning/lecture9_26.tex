@@ -1,0 +1,74 @@
+\section{9/26}
+\subsection{The Natural Numbers}
+\begin{definition}
+  A \underline{relation} R from a set A to a set B is a subset of $A \times B$. 
+\end{definition}
+\begin{definition}
+  A \underline{function} f with domain X and codomain Y is a relation $f \subseteq X \times Y$ such that $\forall x \in X, \exists y \in Y, (x, y) \in f$
+  \\
+  And $((x, y) \in f) \land ((x, z) \in f) \implies (y = z)$
+  We write $f: A \to B$ and $f(a) = b$.
+\end{definition}
+
+The Peano Axioms:
+\begin{enumerate}
+  \item $0 \in \mathbb{N}$
+  \item $\forall x \in \mathbb{N}, x = x$
+  \item $\forall x \in \mathbb{N}, \forall y \in \mathbb{N}, (x = y) \implies (y = x)$
+  \item $\forall x \in \mathbb{N}, \forall y \in \mathbb{N}, \forall z \in \mathbb{N}, [(x = y) \land (y = z)] \implies (x = z)$
+  \item $\forall a, \forall b, [(b \in \mathbb{N}) \land (a = b)] \implies (a \in \mathbb{N})$
+  \item $\exists S \subseteq \mathbb{N} \times \mathbb{N}$ called the successor function, such that $\forall n \in \mathbb{N}, S(n) \in \mathbb{N}$
+  \item $\forall x \in \mathbb{N}, \forall y \in \mathbb{N}, [S(x) = S(y)] \implies (x = y)$ (i.e. S is injective)
+  \item $\forall n \in \mathbb{N}, S(n) \neq 0$
+  \item (Axiom of Induction) If k is a set such that:
+    \begin{enumerate}
+      \item $0 \in k$
+      \item $\forall x \in \mathbb{N}, (x \in k) \Rightarrow (S(n) \in k)$
+    \end{enumerate}
+    Then $\mathbb{N} \subseteq k$.
+\end{enumerate}
+
+Axiom 9': If P(x) is a proposition schema with one free variable x such that: 
+\begin{enumerate}
+  \item P(0) is true
+  \item $\forall n \in \mathbb{N}, (P(n)) \Rightarrow (P(S(n)))$ 
+\end{enumerate}
+Then P(n) is true for all $n \in \mathbb{N}$.
+\\
+Using these axioms, we can define addition and multiplication recursively for all $a, b \in \mathbb{N}$:
+\begin{itemize}
+  \item $a + 0 = a$
+  \item $a + S(b) = S(a + b)$
+\end{itemize}
+\begin{itemize}
+  \item $a \cdot 0 = 0$
+  \item $a \cdot S(b) = a \cdot b + a$
+\end{itemize}
+\begin{theorem}
+  Addition is associative:
+  $\forall a, b, c \in \mathbb{N}, (a + b) + c = a + (b + c)$
+\end{theorem}
+\begin{proof}
+  Fix $a, b \in \mathbb{N}$ and let P(c) be the proposition $(a + b) + c = a + (b + c)$. We will prove that P(c) is true for all $c \in \mathbb{N}$ using Axiom 9'.
+  \\
+  Base Case: P(0) is true since $(a + b) + 0 = a + b$ and $a + (b + 0) = a + b$.
+  \\
+  Inductive Step: Assume P(c) is true for some $c \in \mathbb{N}$, i.e. $(a + b) + c = a + (b + c)$. We want to show that P(S(c)) is true, i.e. $(a + b) + S(c) = a + (b + S(c))$.
+  \begin{align*}
+    (a + b) + S(c) &= S((a + b) + c) &\text{(by definition of addition)}\\
+    &= S(a + (b + c)) &\text{(by inductive hypothesis)}\\
+    &= a + S(b + c) &\text{(by definition of addition)}\\
+    &= a + (b + S(c)) &\text{(by definition of addition)}
+  \end{align*}
+  Thus, by Axiom 9', P(c) is true for all $c \in \mathbb{N}$.
+\end{proof}
+\begin{definition}
+  Inequality on $\mathbb{N}$: For $a, b \in \mathbb{N}, a \leq b \iff \exists c \in \mathbb{N}, a + c = b$. 
+  \\
+  We say $a < b \iff a \leq b$ and $a \neq b$.
+\end{definition}
+Using $\leq$, we can restate Axiom 9' as follows:
+\\
+Axiom 9" (the strong induction axiom): If P(x) is a proposition with one free variable and P(0) is true, for every $n \in \mathbb{N}$ if P(k) is true for all $k \in \mathbb{N}$ where $k \leq n$, P(n) is true.
+\\
+All axioms 1-8 are phrased in first-order logic, which is what have called predicate logic with quantification \underline{of elements of universal sets}. Axioms 9, 9' and 9" all require \underline{second-order logic} where we are allowed to quantify over proposition schemata.

@@ -1,0 +1,45 @@
+\section{September 23, 2025}
+\subsection{Quantification}
+Notation: Given some schema P(x), U a universal set, then we \textunderscore{universally quantify} P(x) by forming the prop: "for all x $\in$ U, P(x) is true" and write $\forall x \in U, P(x)$ or $\forall x \in U: P(x)$.
+\\
+Similarly, we \underline{existentially quantify} P(x) by forming the proposition: "there exists an x $\in$ U such that P(x) is true" and write $\exists x \in U, P(x)$ or $\exists x \in U: P(x)$.
+\begin{note}
+  The name of a free variable is irrelevant. For example, $\forall x \in U, P(x)$ and $\forall y \in U, P(y)$ are the same proposition.
+\end{note}
+\begin{prop}
+  Let U be a universal set, and let P(x) be a schema with free variable x, then:
+  \begin{itemize}
+    \item $\neg (\forall x \in U, P(x)) \equiv \exists x \in U, \neg P(x)$
+    \item $\neg (\exists x \in U, P(x)) \equiv \forall x \in U, \neg P(x)$
+  \end{itemize}
+\end{prop}
+\begin{proof}
+  Let us assume ($\forall x \in U, P(x)$) is true, then for any $x \in U, P(x)$ is true. Thus, there does not exist an $x \in U$ such that $P(x)$ is false, i.e. $\neg P(x)$ is true. Thus, $\exists x \in U, \neg P(x)$ is false.
+  \\
+  Conversely, if we assume $\exists x \in U, \neg P(x)$ is true, then there exists an $x \in U$ such that $P(x)$ is false. Combining these two paragraphs, we have shown that $\exists x \in U, \neg P(x)$ is true if and only if $\forall x \in U, P(x)$ is false. Thus, $\neg (\forall x \in U, P(x)) \equiv \exists x \in U, \neg P(x)$.
+\end{proof}
+\begin{example}
+  Negate $\forall x [(x \in A) \implies (x \in B)]$
+  \\
+  $\neg (\forall x [(x \in A) \implies (x \in B)]) \equiv \exists x \neg [(x \in A) \implies (x \in B)] \equiv \exists x [(x \in A) \land \neg (x \in B)] \equiv \exists x [(x \in A) \land (x \notin B)]$
+  \\
+  In english: "There is an element of A which is not and element in B". i.e. $A \not\subseteq B$.
+\end{example}
+\begin{example}
+  U = $\mathbb{Z}$ and consider the propositions: $[\forall a \in U, \exists b \in U, a + b = 1]$ and $[\exists a \in U, \forall b \in U, a + b \neq 1]$.
+  \\
+  The first proposition is true, since for any integer a, we can choose b = 1 - a, which is also an integer, and a + b = 1.
+  \\
+  The second proposition is false, since for any integer a, we can choose b = 1 - a, and a + b = 1.
+  \\
+  Note that the order of quantifiers matters!
+\end{example}
+\begin{prop}
+  Let U be a universal set, and let P(x) and Q(x) be schemas with free variable x, then:
+  \begin{itemize}
+    \item $\forall x \in U, [P(x) \land Q(x)] \implies [\forall x \in U, P(x)] \land [\forall x \in U, Q(x)]$
+    \item $\exists x \in U, [P(x) \lor Q(x)] \implies [\exists x \in U, P(x)] \lor [\exists x \in U, Q(x)]$
+    \item $\forall x \in U, [P(x) \lor Q(x)] \implies [(\forall x \in U, P(x)) \lor (\forall x \in U, Q(x))]$
+    \item $\exists x \in U, [P(x) \land Q(x)] \implies [(\exists x \in U, P(x)) \land (\exists x \in U, Q(x))]$
+  \end{itemize}
+\end{prop}
