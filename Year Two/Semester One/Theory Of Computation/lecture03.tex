@@ -1,0 +1,42 @@
+\section{September 19}
+
+\begin{theorem}
+If $A, B$ are regular languages, then so is $A \cup B$.
+\end{theorem}
+
+\begin{theorem}
+If $A$ is a regular language, then $A^*$ is regular.
+\end{theorem}
+
+\subsection*{Regular Expressions}
+\begin{definition} \label{def:regex}
+A regular expression (RE) over $\Sigma$ is defined inductively:
+\begin{itemize}
+    \item Atomic: $\emptyset$, $\epsilon$, or $a \in \Sigma$.
+    \item If $R_1, R_2$ are REs, then so are:
+    \[
+    (R_1 \cup R_2), \quad (R_1 R_2), \quad (R_1^*).
+    \]
+\end{itemize}
+\end{definition}
+Given regular expressions R and S, the following operations over them are defined to produce regular expressions:
+\begin{itemize}
+    \item \underline{Concatenation} (RS): denotes the set of strings that can be obtained by concatenating a string accepted by R and a string accepted by S (in that order). For example, let R denote $\{$"ab", "c"$\}$ and S denote $\{$"d", "ef"$\}$. Then, (RS) denotes $\{$"abd", "abef", "cd", "cef"$\}$.
+
+    \item \underline{Alternation} (R$\vert$S) denotes the set union of sets described by R and S. For example, if R describes $\{$"ab", "c"$\}$ and S describes $\{$"ab", "d", "ef"$\}$, expression (R$\vert$S) describes $\{$"ab", "c", "d", "ef"$\}$.
+
+    \item \underline{Kleene Star} (R*) denotes the smallest superset of the set described by R that contains $\varepsilon$ and is closed under string concatenation. This is the set of all strings that can be made by concatenating any finite number (including zero) of strings from the set described by R. For example, if R denotes $\{$"0", "1"$\}$, (R*) denotes the set of all finite binary strings (including the empty string). If R denotes $\{$"ab", "c"$\}$, (R*) denotes $\{ \varepsilon$, "ab", "c", "abab", "abc", "cab", "cc", "ababab", "abcab", ...$\}$.
+\end{itemize}
+\begin{definition}
+The semantics of a RE $R$ are given by its language $L(R)$:
+\[
+L(\emptyset) = \emptyset, \quad L(\epsilon) = \{\epsilon\}, \quad L(a) = \{a\}.
+\]
+\[
+L(R_1 \cup R_2) = L(R_1) \cup L(R_2), \quad L(R_1R_2) = L(R_1)L(R_2), \quad L(R^*) = (L(R))^*.
+\]
+\end{definition}
+
+\begin{theorem}
+A language $A$ is regular $\iff$ there exists a DFA, NFA, or regular expression $R$ such that $A = L(R)$.
+\end{theorem}

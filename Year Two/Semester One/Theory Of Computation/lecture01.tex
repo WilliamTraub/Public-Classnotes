@@ -1,0 +1,63 @@
+\section{September 9}
+
+\begin{definition}
+A function $f : D \to R$ has domain $D$ and range $R$. Each input $x \in D$ is mapped to exactly one output $f(x) \in R$.
+\end{definition}
+
+\begin{example}
+The function $\text{add} : \mathbb{Z} \times \mathbb{Z} \to \mathbb{Z}$ is defined by
+\[
+\text{add}(x,y) = x + y.
+\]
+\end{example}
+
+\subsection*{Goal of Computation}
+We focus on computing functions $f : \Sigma^* \to \{\text{accept}, \text{reject}\}$.
+\begin{itemize}
+    \item \textbf{Domain:} strings over alphabet $\Sigma$.
+    \item \textbf{Range:} Boolean $\{0,1\}$ or $\{\text{accept}, \text{reject}\}$.
+\end{itemize}
+
+Why strings? Any input can be encoded as a string.  
+Why booleans? Simplicity, while still capturing many interesting functions.
+
+\subsection*{Functions as Languages}
+A language $L$ over $\Sigma$ is a subset of $\Sigma^*$.  
+Example: $L = \{ w \in \{0,1\}^* : w \text{ ends with } 1\} = \{1, 01, 11, 001, 101, \dots\}$.
+
+Equivalence between functions and languages:
+\[
+f \leftrightarrow L \quad \text{where} \quad
+L = \{w : f(w) = \text{accept}\}.
+\]
+
+\subsection*{Observation}
+Languages may be finite or infinite, but a ``program'' is always a finite description.
+
+\section*{Finite Automata}
+A \textbf{deterministic finite automaton (DFA)} consists of:
+\begin{itemize}
+    \item States (nodes).
+    \item Transitions labeled by alphabet symbols.
+    \item Unique start state $q_0$.
+    \item Accept states (double circles).
+\end{itemize}
+
+\begin{definition}
+A DFA is a 5-tuple $M = (Q, \Sigma, \delta, q_0, F)$ where:
+\begin{itemize}
+    \item $Q$ = finite set of states
+    \item $\Sigma$ = alphabet
+    \item $\delta : Q \times \Sigma \to Q$ = transition function
+    \item $q_0 \in Q$ = start state
+    \item $F \subseteq Q$ = accepting states
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+The extended transition function $\delta^* : Q \times \Sigma^* \to Q$ is defined by:
+\[
+\delta^*(q,\epsilon) = q, \quad
+\delta^*(q, w a) = \delta(\delta^*(q, w), a).
+\]
+\end{definition}

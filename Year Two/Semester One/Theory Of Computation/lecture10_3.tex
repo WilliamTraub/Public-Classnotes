@@ -1,0 +1,63 @@
+\section{October 3}
+\subsection{Turing Machines}
+"If you want to learn anything about automata you can just ask chatGPT"
+\\
+A Turing machine is a General Model of Computation
+\begin{itemize}
+    \item \textbf{Algorithms have been around since dawn of time.}
+          \begin{itemize} 
+            \item Long addition, multiplication, division.
+            \item Compass and straightedge constructions 
+            \item Euclid's greatest common divisor algorithm  
+            \item Quadratic formula: finding roots of polynomials
+          \end{itemize}
+    \item Traditionally, algorithms were understood as a human construct. No precise mathematical definition.  
+\end{itemize}
+Already saw a limited notion of algorithms (DFA). Using the pumping lemma, we proved that there are some problems that are not computable in this model.
+\subsubsection{David Hilbert's Descision Problem}
+In 1928, David Hilbert asked for an "algorithm" that takes as input a mathemattical statement and decides whether the statement is \underline{true} or \underline{false}.
+\\
+During the years 1931-1936, a series of works showed there is no algorithm for the decision problem.
+\\
+Each of these works included a different definition of a \underline{"general algorithm"}.
+\begin{itemize}
+  \item Kurt Godel relied on recursive functions.
+  \item Alonzo Church developed $\lambda$-calculus.
+  \item Alan Turing developed the Turing Machine.
+\end{itemize}
+All of these definitions turn out to be equivalent.
+\\
+Turing Machines are perhaps the most intuitive. They provided inspiration for a general computer, the \underline{Von Neumann Architecture}
+\newpage
+\subsubsection*{Turing Machines cont.}
+Our Plan
+\begin{itemize}
+  \item Define Turing Machines (TM). See how they work.
+  \item Convince ourselves that TMs are powerful enough to implement any "reasonable algorithm".
+    
+\end{itemize}
+A TM is like a DFA with infinite memory tape. Information can be saved and accessed using the tape instead of the DFA's state space.
+\begin{itemize}
+  \item Initially, tape contains the input, followed by "blanks". The tape head is at the left-most position.
+  \item In each step, the machine can overwrite the symbol under the tape-head and move the tape left or right.
+    \begin{itemize}
+      \item The tape head cannot move left of the start.
+      \item TMs can use additional symbols to write to tape.
+    \end{itemize}
+  \item At any point in time, the machine can halt the computation and \underline{accept} or \underline{reject}. (If there is no decision edge at the state the head is on, also reject)
+  \item This is implemented via states and transitions like a DFA
+\end{itemize}
+\begin{definition} \label{TuringMachine}
+  A \underline{Turing Machine} consists of a tuple: 
+  \\$M = (Q, \Sigma, \Gamma, \delta, q_{start}, q_{accept}, q_{reject}$) Where
+  \begin{itemize}
+    \item Q is a finite set called the \underline{states}. 
+    \item $\Sigma$ is an \underline{input alphabet}.
+    \item $\Gamma$ is the \underline{tape alphabet} such that $\Sigma \subseteq \Gamma$ and $\Gamma$ contains a special blank symbol '-' that is not in $\Sigma$.
+    \item $q_{start} \in Q$ is the \underline{start state}.
+    \item $q_{accept} \in Q$ is the \underline{accept state}, $q_{reject}$ is the reject state.
+    \item $\delta : Q' \times \Gamma \rightarrow Q \times \Gamma \times \{L, R\}$ is the \underline{transition function}.
+    \\ \indent \indent Where $Q' = Q \setminus \{q_{accept}, q_{reject}\}$
+  \end{itemize}
+\end{definition}
+

@@ -1,0 +1,51 @@
+\section{October 14 - Turing Machine Variants}
+\subsection*{Multi-Tape TM}
+A TM with one input tape and multiple work tapes. Transition function is defined by $\delta = Q' \times T \to Q \times T \times \{L, R\}$.   $\delta(g, w) = (g', w, L/R)$.
+\begin{itemize}
+  \item You can concatenate multiple tapes to one tape and separate their contents by \#. 
+  \item Remember tape-head positions by storing an \underline{underlined} version of tape symbols. 
+  \item Each step of multi-tape TM is simulated by scanning entire tape of single-tape TM.
+  \item If you run out of space on the tapes, shift all elements to the right. (halting problem)
+\end{itemize}
+Tape-Head Level Description:
+\\
+f(a, b) = a + b. Input (binary interpretations of two integers separated by a \#)
+\begin{itemize}
+  \item Reverse each input and copy each one to a different tape and clear main tape. 
+  \item Return all tape heads to the left. Store 1-bit carry as 0
+  \item Add two bits under each tape head (using 0 if one head is empty) and carry bit:
+    \begin{itemize}
+      \item Write result mod 2 to the main tape.
+      \item Move all tape heads 1 right.
+      \item Repeat until both heads are empty.
+    \end{itemize}
+  \item Reverse main tape.
+\end{itemize}
+
+\subsection*{Random Access TM}
+Can read/write to arbitrary locations in memory without scanning a tape. Memory modeled as infinite array R.
+\begin{itemize}
+  \item In addition to the standard tape that contains the input the TM has location and value tapes.
+  \item There is a special write transition which sets R[location] = value using the content of the tapes.
+  \item There is a read transition which sets the contents of the values tape to R[location]
+\end{itemize}
+Compliling to normal TM:
+\\
+We use a multi-tape machine (which can be converted to a single-tape)
+\begin{itemize}
+  \item Store contents of array R on a tape as tuples (location$_n$, value$_n$).
+  \item To simulate a read, scan R until find a location that matches content of location tape. Write the value on the value tape. Put a blank if no such value is found.
+  \item To simulate a write, scan R until you find location that matches content of location tape. Update value. If none found, append (location, value) to end of R.
+\end{itemize}
+\subsection*{Turing Completeness}
+\begin{theorem}
+  Church-Turing Thesis: Any algorithm (in an informal sense) can be computed by a TM.
+\end{theorem}
+Proof Outline:
+\\
+Design a compiler that converts Java program into a TM.
+\begin{itemize}
+  \item All programming languages are already compiled to "assembly code" for modern CPUs
+  \item Assembly code instructions can be implemented on a Random-Access TM.
+\end{itemize}
+

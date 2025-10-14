@@ -1,0 +1,59 @@
+\section{Functions}
+\subsection{Definitions}
+\begin{definition}
+  A \textbf{Function} is defined by a subset of $A \times B$: 
+  \[\Gamma_f := \{ (a, b) \in A \times B | b = f(a)\} \subseteq A \times B \]
+  This set $\Gamma_f$ is the \textit{graph} of f; a function is fully represented by its graph.
+  \\
+  Functions are required to follow $(\forall a \in A)(\exists !b \in B) \: f(a) = b$
+\end{definition}
+Identity function: $id_A : A \to A$ or $(\forall a \in A) \: id_A(a) = a$ 
+
+
+\subsection{Indexed Sets}
+An indexed set $\{a_i \}_{i \in I}$ is informaly defined as $a_i$ for i ranging over some set of indicies I. The more formal definition is a function $I \to A$ where A is some set from which we draw the elements $a_i$.
+
+
+\subsection{Composition of functions}
+Functions may be composed if $f : A \to B$ and $g : B \to C$ are functions, then so is the operation $g \circ f$ defined by:
+\[ (\forall a \in A) \: (g \circ f)(a) := g(f(a)) \]
+Composition is commutative and associative.
+
+
+\subsection{Injections, surjections, bijections}
+\begin{itemize}
+  \item A function $f: A \to B$ is \textit{injective} if $(\forall a' \in A)(\forall a'' \in A) \: a' \neq a'' \implies f(a') \neq f(a'')$. That is, if f sends different elements to different elements.
+  \item A function $f: A \to B$ is \textit{surjective} if $(\forall b \in B)(\exists a \in A) \: b = f(a)$. That is, if f 'covers the whole of B' (im f = b)
+\end{itemize}
+Injections are often drawn $\hookrightarrow$; surjections are often drawn $\twoheadrightarrow$.
+\\
+If f is both injective and surjective, we say it is \textit{bijective} or and \textit{isomorphism of sets}. Where we write $\cong$
+
+
+\subsection{Injections, surjections, bijections: Second viewpoint}
+If $f : A \to B$ is a bijection, than we can 'flip its graph' to define a function $g : B \to A$.
+\\
+Assume $A \neq \emptyset$, and let $f: A \to B$ be a function:
+\begin{enumerate}
+  \item f has a left-inverse if and only if it is injective.
+  \item f has a right-inverse if and only if it is surjective.
+\end{enumerate}
+This implies a function $f : A \to B$ if a bijection if and only if it has a two-sided inverse. ??.
+\subsection{Monomorphisms and epimorphisms}
+There is another way to express injectivity and surjectivity.
+\\
+A function $f: A \to B$ is a \textit{monomorphism} if the following holds:
+\\
+$\textit{for all sets Z and all functions } \alpha', \alpha'' : Z \to A$
+\\
+$f \circ \alpha' = f \circ \alpha'' \implies \alpha' = \alpha''$
+
+
+\subsection{Excercises}
+\begin{excercise}
+  Prove that the inverse of a bijection is a bijection and that the composition of two bijections is a bijection.
+  \\
+  First to prove the inverse of a bijective function f is injective:
+  \\
+  By Proposition 2.1, b
+\end{excercise}

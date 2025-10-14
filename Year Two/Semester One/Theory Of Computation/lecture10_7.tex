@@ -1,0 +1,35 @@
+\section{October 7}
+\subsection{Building a Turing Machine}
+\begin{definition}
+  \textbf{Configuration} encodes all information about a particular step in the computation of a turing machine.
+  \\
+  All information:
+  \begin{itemize}
+    \item Current state
+    \item Content on the tape
+    \item Tape-head position
+  \end{itemize}
+  Let $M = (Q, \Sigma, \Gamma, \delta, q_{start}, q_{accept}, q_{reject}$ be a Turing Machine.
+  \begin{itemize}
+    \item A \textbf{configuration} of M is a tuple $C=(u,q,v)$ such that $u,v \in \Gamma^{*}$ and $q \in Q$. Can write $C=uqv$ without commas.
+    \item A configuration $C$ \textbf{yields} $C'$ if M goes from C to C' in 1 step.
+    \begin{itemize}
+      \item $C = (u, q, bw)$ yields $C' = (ub', q', w)$ if $\delta(q,b) = (q', b', R)$
+      \item $C = (ua, q, bw)$ yields $C' =  (u,q',ab'w)$ if $\delta(q,b) = (q', b', L))$
+      \item $C = (q,bw)$ yields $C' = (q',b'w)$ if $(q,b) = (q', b', L)$ (don't fall off)
+    \end{itemize}
+    \item A start configuration of M on input W is $q_{start}W$
+    \item An accepting (resp.  rejecting) configuration is one where the state is $q_{accept}$ (resp.  $q_{reject}$). 
+  \end{itemize} 
+  M accepts (resp. rejects) w if there is a sequence of configurations $C_1, C_2, ... , C_n$ such that:
+  \begin{itemize}
+    \item $C_1$ is the start configuration of M on input w.
+    \item $C_i$ yields $C_{i+1}$ for $i = 1,...,n-1$.
+    \item $C_n$ is an accepting (resp. rejecting) configuration.
+  \end{itemize}
+\end{definition}
+This is a way to save your current state for later.
+\\
+If $C = (ua, q, bv), \: \delta(a, b) = (q', c, L)$, then $C' = (u, q', acv)$
+\\
+If $\delta(a, b) = (q', C, R)$ then $C' = (uac, q', v)$

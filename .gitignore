@@ -1,0 +1,85 @@
+# ============================
+#  General System Files
+# ============================
+.DS_Store
+Thumbs.db
+desktop.ini
+Icon?
+*.tmp
+*.bak
+
+# ============================
+#  LaTeX Build Files
+# ============================
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.pdfsync
+*.dvi
+
+# ============================
+#  Code / Build Artifacts
+# ============================
+*.class
+*.jar
+*.war
+*.ear
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.out
+*.log
+*.pyc
+__pycache__/
+.gradle/
+build/
+bin/
+target/
+
+# ============================
+#  IDE / Editor Files
+# ============================
+# VS Code
+.vscode/
+# IntelliJ / IDEA
+.idea/
+*.iml
+# Eclipse
+.project
+.classpath
+.settings/
+# TeXStudio / Overleaf
+*.synctex(busy)
+*.synctex.gz
+
+# ============================
+#  Environment / Config Files
+# ============================
+.env
+*.env.*
+*.config
+*.local
+*.lock
+
+# ============================
+#  Temporary or Private Files
+# ============================
+Private/
+Drafts/
+Homework/
+
+# ============================
+#  OS-Generated Folders
+# ============================
+__MACOSX/

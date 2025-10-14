@@ -1,0 +1,61 @@
+\section{October 10}
+\subsection{Language of a TM}
+\begin{itemize}
+  \item A TM M on input w can either accept, reject, or loop
+  \item For a TM M, we define $L(M) = \{w | M \text{ accepts } w \}$
+  \item If TM M and a language L satisfies "for any $x \in L$, M accepts x", we cannot say "M recognizes L". We must prove that $L(M) = \{w | M \text{ accepts } w \}$ 
+  \item \quad Do this using $\subseteq$ (M accepts any string in L) and $\supseteq$ (If a string is accepted by M, the string is in L).
+  \item We say the M \textbf{decides} L if 
+  \begin{itemize}
+    \item M accepts $w \in L$ and M rejects $w \notin L$.
+    \item equivalently: M recognizes L and M always halts.
+  \end{itemize}
+  \item A language L is \textbf{recognizable} (resp. \textbf{decidable}) if there is some TM that recognizes (resp. decides) L.
+  \item The set of all languages decided by turing machines is a subset of all languages recognized by turing machines.
+\end{itemize}
+
+\subsection{Specifiying a Turing Machine}
+Instead of drawing a state diagram, we give a "tape-head" level description that abstracts out the states/transitions via pseudocode.
+\begin{itemize}
+  \item Imagine tape-head has small local memort which is "fixed" and cannott grow with input size (states of TM).
+  \item Describe how the tape-head should \textbf{walk across the tape} and \textbf{what it should write}.
+\end{itemize}
+\begin{example}
+  $L = \{a^{2n} | n \geq 0\}$ all powers of 2.
+  \\
+  Walk tape-head from left to right and cross out any other a.
+  \begin{itemize}
+    \item If tape contained a single 0, accept.
+    \item Else if number of 0s was odd, reject.
+    \item Else return to the left-hand end of tape, repeat. 
+  \end{itemize}
+\end{example}
+\begin{example}
+  $L = \{ w \# w: w \in (0,1)^{*} \}$
+  \begin{itemize}
+    \item Check input is of form $\{0, 1\}^* \# \{0, 1\}^*$ and reject otherwise.
+    \item 
+  \end{itemize}
+\end{example}
+
+\subsection{Beyond Boolean Functions}
+We can also consider TM's that output more than just "accept/reject"
+\\
+Idea: define the output of a TM as the contents of its tape when it enters a halt state.
+\\
+A TM M computes a function $f: \: \Sigma^* \to \Sigma^*$ if on every input $w \in \Sigma^*$ the TM \textbf{halts} and its tape contains f(w).
+
+\begin{definition}
+  We say that f is \textbf{computable} if some TM M computes it.
+\end{definition}
+\begin{example}
+  $f: \: \{0, 1\}^* \to \{0, 1\}^*$: f(binary rep of n) = binary rep of n + 1. f is the binary successor function.
+  \\ 
+  Show that this is computable.
+  \\
+  Given any input string such as '01101101111':
+  \\
+  Move to the end of the string and continue left until the beginning. Flip all 1's until the first 0, flip the first 0.
+  \\
+  To prevent crashing off the beginning of the tape if all ones: convert first character to a \# if it is a 1 and add a zero on the end if it is reached.
+\end{example}
