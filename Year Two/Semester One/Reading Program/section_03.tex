@@ -1,0 +1,24 @@
+\section{Section 3: Categories}
+\subsection{Definition}
+A category consists of a collection of 'objects' and of 'morphisms" between objects, satisying a list of conditions.
+\\
+Categories are explicitly not sets, as we would like to create a category of all sets and a set cannot contain all sets. 
+\footnote{This might be because a set of all sets must include itself which violates ZF axiom of foundation. The text says this is because of Russel's Paradox which seems to be an alternative to ZF.}
+While a collection doesn't really have a formal definitions, \textit{class} is used to deal with collections of sets. In some cases a class is a set (and is called small).
+\begin{definition}
+  A \underline{category} C consists of:
+  \begin{itemize}
+    \item a class Obj(\textbf{C}) of objects of the category
+    \item for every two objects A, B of \textbf{C}, a set Hom$_{\textbf{C}}$(A,B) of morphisms, with the properties listed below
+  \end{itemize}
+\end{definition}
+Think of objects as sets and morphisms as functions. Morphisms have these properties: 
+\begin{itemize}
+  \item For every object A of C, there exists at least one morphism $1_A \in \text{Hom}_{\textbf{C}}(A,A)$, the 'identity' on A.
+  \item One can compose morphisms: 
+  two morphisms $f \in \text{Hom}_{\textbf{C}} (A,B)$ and $g \in \text{Hom}_{\textbf{C}} (B,C)$ determine a morphism $g \: f \in \text{Hom}_C(A,C)$.
+  That is, for every triple of objects A, B, C of \textbf{C} there is a function where:
+  \[\text{Hom}_{\textbf{C}} (A,B) \times \text{Hom}_{\textbf{C}} (B,C) \to \text{Hom}_C(A,C)\]
+  \item This is the 'composition law' and it is associative: if $f \in \text{Hom}_{\textbf{C}} (A,B), g \in \text{Hom}_{\textbf{C}} (B,C), and h \in \text{Hom}_C(A,C)$, then (hg)f = h(gf)
+  \item The identity morphisms hold under composition such that
+\end{itemize}
