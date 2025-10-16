@@ -1,0 +1,121 @@
+\section{Median}
+
+\begin{definition}
+The median $m$ is the number so that $P(X \leq m^*) \geq 0.5$ and $P(X \geq m^*) \geq 0.5$.
+\end{definition}
+
+\begin{example}
+$P_X(x) = 3x^2$, $0 \leq x \leq 1$
+
+$0.5 = \int_0^{m^*} 3x^2 dx$, so $0.5 = x^3 \Big|_0^{m^*} = (m^*)^3$, thus $m^* = \sqrt[3]{0.5}$
+\end{example}
+
+\textbf{Notation:} $E(X) = \mu$, $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$ (population mean vs sample mean)
+
+\begin{note}
+$E(g(x)) = \sum g(x) P(X = x)$ or $\int_{-\infty}^{\infty} g(x) P_X(x) dx$
+\end{note}
+
+\begin{example}
+$x = [-1, 1, 3]$
+
+\[E(X) = -0.3 + 0.4 + 0.9 = 1\]
+
+$E(\cos(x)) = \cos(-1)(0.3) + \cos(1)(0.2) + \cos(3)(0.3)$
+
+$E(X) = \int_0^1 3x^3 dx$, $E(x^2) = \int_0^1 x^2(3x^2) dx$
+\end{example}
+
+\section{Variance}
+
+\begin{definition}
+\[\text{Var}(X) = E[(X - \mu)^2] = \sigma^2 \qquad 1, 2, 5 \Rightarrow \sigma^2 = 2 \qquad \text{Var} = 4\]
+\end{definition}
+
+\begin{theorem}
+$E[(X - \mu)^2] = \text{Var}(X) = E(X^2) - \mu^2$
+\end{theorem}
+
+\begin{note}
+$E(aX + b) = aE(X) + b$
+\end{note}
+
+\section{Variance Examples}
+
+\begin{example}[Finite discrete dist.]
+$x = 1, 2, 3, 4$, $E(X) = \frac{1}{4}(1 + 2 + 3 + 4) = 2.5$
+
+$\text{Var}(X) = \frac{1}{4}[(1 - 2.5)^2 + (2 - 2.5)^2 + (3 - 2.5)^2 + (4 - 2.5)^2] = 1.25$
+\end{example}
+
+\begin{example}[Roll die]
+$E(X) = \frac{1}{6}(1 + 2 + 3 + 4 + 5 + 6) = 3.5$
+
+$E(X^2) = \frac{1}{6}(1 + 4 + 9 + 16 + 25 + 36) = \frac{91}{6}$
+
+$\text{Var}(X) = \frac{91}{6} - (3.5)^2 = \frac{35}{12}$
+\end{example}
+
+\begin{example}[Binomial]
+$E(X) = np$, $\text{Var}(X) = np(1 - p)$
+
+Roll 600, $k \neq$ of 6's: $E(X) = 100$, $\text{Var}(X) = 600 \cdot \frac{1}{6} \cdot \frac{5}{6}$
+\end{example}
+
+\section{Further Properties of Mean and Variance}
+
+\begin{theorem}[Lemma]
+$E(aX + bY) = aE(X) + bE(Y)$
+\end{theorem}
+
+\textbf{Useless:} $\sigma = S(+)+EY + \sqrt{VAR}$
+
+\begin{definition}
+$\bar{X} = \frac{1}{n} \sum X_i$ where $X_i$ are from a list with $E(X_i) = \mu$
+
+$E(\bar{X}) = \frac{1}{n} \sum E(X_i) = \mu$
+\end{definition}
+
+\begin{note}
+$\text{Var}(\bar{X}) = E[(\bar{X} - \mu)^2] = E\left[\left(\frac{1}{n} \sum X_i - \mu\right)^2\right] = E\left[X^2\right] - \mu^2$
+\end{note}
+
+\begin{note}
+If $X$ and $Y$ are independent, $\text{Var}(X) + \text{Var}(Y)$
+\end{note}
+
+$\text{Var}(aX + bY)$ if $X$ and $Y$ are independent: $a^2 \text{Var}(X) + b^2 \text{Var}(Y)$
+
+$\text{Var}(X_1 + \cdots + X_n) = \text{Var}(X_1) + \cdots + \text{Var}(X_n)$ if $X$ and $Y$ are independent
+
+$\text{Var}(\bar{X}) = \sigma^2$ where $\sigma^2 = \text{Var}(X_i) = \frac{\sigma^2}{n}$
+
+\textbf{Notation (if points equally likely):} $\sigma^2 = \frac{1}{n} \sum (X_i - \mu)^2$ = population variance
+
+$s^2 = \frac{1}{n-1} \sum (X_i - \bar{X})^2$ = sample variance
+
+\begin{center}
+\begin{tabular}{c|cccccc}
+$Y$ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+$X$ & 1 & 1 & 1 & 1 & 1 & 1 \\
+1 & $\times$ & & & & & \\
+2 & $\times$ & $\times$ & & & & \\
+3 & $\times$ & $\times$ & $\times$ & & & \\
+4 & $\times$ & $\times$ & $\times$ & $\times$ & & \\
+5 & & & & & $\times$ & \\
+6 & & & & & & $\times$
+\end{tabular}
+\end{center}
+
+PMF with respect to $Y$
+
+\section{The k-th Moment}
+
+\begin{definition}
+The k-th moment of $X$ is $E(X^k)$
+\end{definition}
+
+\textbf{Notation (if points equally likely):} $\sigma^2 = \frac{1}{n} \sum (X_i - \mu)^2$ = population variance = standard
+
+$s^2 = \frac{1}{n-1} \sum (X_i - \bar{X})^2$ = sample var

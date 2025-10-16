@@ -1,0 +1,113 @@
+\section{Joint Densities}
+
+\begin{example}
+$f_{X,Y}(x,y) = \frac{2}{3} xy$, $0 \leq x \leq 1$, $0 \leq y \leq 2$, $x + y > 1$
+
+Find $E(XY) = \int \int (xy) \left[\frac{2}{3} xy\right] dy dx = \frac{2}{3} \int_0^1 \int_{1-x}^2 x^2 y^2 dy dx$
+
+Find $F(X) = \int_0^2 \frac{2}{3} xy dy = \frac{2}{3} xy \Big|_{y=0}^{2} = \frac{2}{3} x(2) - \frac{2}{3} x(0) = \frac{4}{3}x$, $0 \leq x \leq 1$
+
+Expected $f(x)$: $P(Y > X) = 1 - P(Y \leq X) = 1 - \int_0^1 \int_0^x \frac{2}{3} xy dy dx$
+
+$y = \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix}$, $z = \begin{bmatrix} z_1 \\ \vdots \\ z_n \end{bmatrix}$
+
+Find $E(XY) = \sum \sum (xy) P(X,Y) = (.5)(2)(.5) + 1.5$
+
+$E(Y) = 1(.3) + 1(.6) + 2(.1) = .5$
+
+Find $E(XY) = (.1)(.1) + (.2) + 2(.2) + 2(.3) + 2(.2) + 2(.3) = .6$
+\end{example}
+
+\begin{definition}
+The covariance is the $\text{Cov}(X,Y) = E[(X - \mu_X)(Y - \mu_Y)] = E(XY) - E(X)E(Y)$
+\end{definition}
+
+Are the sets $\{x=13\}$ and $\{y=13\}$ independent? $P(\{x=13\} \cap \{y=13\}) = P(\{x=13\})P(\{y=13\})$
+
+$P(\{x=x\})$ 
+
+\begin{theorem}
+The random variables $X$ and $Y$ are independent if $P(X \in A \cap Y \in B) = P(X \in A)P(Y \in B)$ for all sets $A \in S_X$, $B \in S_Y$
+\end{theorem}
+
+If $X$ and $Y$ are independent, $E(XY) = E(X)E(Y) \Rightarrow \text{Cov}(X,Y) = 0$
+
+\textbf{Lemma:} The continuous random variables $X$ and $Y$ are independent if $f_{XY}(x,y) = g(x)h(y)$ where $g(x) = k f_X(x)$ and $h(y) = \ell f_Y(y)$ for all $x \in S_X$, $y \in S_Y$
+
+\begin{example}
+$f_{XY}(x,y) = \frac{1}{33} xy$, $0 \leq x \leq 1$, $0 \leq y \leq 2$, $x + y > 1$
+
+Are $X$ and $Y$ independent? NO - need 5 to be rectangle
+\end{example}
+
+\begin{example}
+$f_{XY}(x,y) = d(x \cdot y)$, $0 \leq x \leq 2$, $0 \leq y \leq 5$
+
+$f_{XY}(x,y) = \frac{1}{(x+y)} p \neq h(x)g(y)$ NO
+\end{example}
+
+\begin{example}
+$f_{XY}(x,y) = e^{-(x+y)}$, $x \geq 0$, $y \geq 0$
+
+$= e^{-x} \cdot e^{-y} = g(x) h(y)$ YES
+\end{example}
+
+\begin{example}
+If $\text{Var } f_X(x) = 4x^3$, $0 \leq x \leq 1$, $f_Y(y) = 3y^2$, $0 \leq y \leq 1$
+
+Find $P(Y > X)$: If $Y$ and $Y$ are independent
+
+$f_{XY}(x,y) = 4x^3(3y^2) \Rightarrow$
+
+$\int_0^1 \int_x^1 (2x^3y^2) dy dx = \int_0^1 4x^3 y^3 \Big|_x^1 dx$
+
+$\ldots$
+\end{example}
+
+\section{Further Properties of Mean and Variance}
+
+\begin{lemma}
+$E(aX + bY) = aE(X) + bE(Y)$
+\end{lemma}
+
+\begin{definition}
+$\bar{X} = \frac{1}{n} \sum X_i$ where $X_i$ are from a list with $E(X_i) = \mu$
+
+$E(\bar{X}) = \frac{1}{n} \sum E(X_i) = \mu$
+
+$\text{Note: } \text{Var}(\bar{X}) = E[(\bar{X}-\mu)^2] = E[(X_i - \mu)]^2 = E[X^2] - \mu^2$
+\end{definition}
+
+\begin{note}
+If $X$ and $Y$ are independent, $\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y)$
+\end{note}
+
+$\text{Var}(aX + bY)$ if $X$ and $Y$ are independent $= a^2 \text{Var}(X) + b^2 \text{Var}(Y)$
+
+$\text{Var}(\bar{X})$ for $X$ and $Y$ independent: $\sigma^2 = \text{Var}(X_i) = \frac{1}{n^2}[\sigma^2 + \cdots + \sigma^2] = \frac{\sigma^2}{n}$
+
+$\text{Var}(N) = 100\sigma^2(X) - 36\text{Var}(Y) - 110\sigma^2(X) + 36\text{Var}(Y)$ if $X$ and $Y$ are $ind$
+
+\begin{definition}
+The correlation coefficient is: $\rho = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}$, $-1 \leq \rho \leq 1$
+\end{definition}
+
+PPP:
+\begin{enumerate}
+\item $-1 \leq \rho \leq 1$
+\item $\rho = \pm 1 \Leftrightarrow y = a + bx$
+\item $\rho = 0$ no linear association
+\item $\rho$ gives the percent of the variation in $y$ due to the change in $x$
+\end{enumerate}
+
+\begin{example}[20]
+$X \sim \text{Binom}(n, p_x)$, $Y \sim \text{Binom}(m, p_y)$, $U = X + Y$
+
+Find $E(U)$, $\text{Var}(U)$
+
+$E(X) = np_x$, $E(Y) = mp_y$, $\text{Var}(X) = np_x(1 - p_x)$, $\text{Var}(Y) = mp_y(1 - p_y)$
+
+$E(U) = 4E(X) + 6E(Y) = 4np_x + 6mp_y$
+
+$\text{Var}(N) = 10\sigma^2(X) - 36\text{Var}(Y) = 110p_x(1 - p_x) + 36mp_y(1 - p_y)$ if $X$ and $Y$ are $ind$
+\end{example}

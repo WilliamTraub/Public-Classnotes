@@ -1,0 +1,76 @@
+
+
+\section{Conditional Probability (continued)}
+
+Find $P(1^{\text{st}} \text{ blue} \mid 2^{\text{nd}} \text{ blue}) = \frac{P(1^{\text{st}} \text{ blue} \cap 2^{\text{nd}} \text{ blue})}{P(2^{\text{nd}} \text{ blue})} = \frac{4/4}{5/12} = 0.6$
+
+See setup for total probability.
+
+\begin{theorem}[Bayes' Theorem]
+\[P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)} = \frac{P(B \cap A)P(A)}{\sum_{\text{all } k} P(B \mid A_k)P(A_k)}\]
+\end{theorem}
+
+\subsection{Medical Test Example}
+
+A test is 95\% accurate: $P(\{+\} \mid \text{disease}) = 0.95$, $P(\{-\} \mid \text{not disease}) = 0.95$
+
+If $P(\text{disease}) = 0.01$, find $P(\text{test} +)$:
+
+\begin{align*}
+0.01 \cdot 0.95 &= (0.01)(0.95) + (1.00)(0.05) = 0.059
+\end{align*}
+
+$P(\text{disease} \mid +) = \frac{P(\text{is } + \text{ } \cap)}{P(+)} = \frac{(0.01)(0.95)}{0.059} = 0.16$
+
+Roll a die until you get a 6:
+
+$P(\{3\}) + P(\{4\}) + P(\{5\}) = \left(\frac{5}{6}\right)^2 \left(\frac{1}{6}\right) + \left(\frac{5}{6}\right)^3 \left(\frac{1}{6}\right) + \left(\frac{5}{6}\right)^4 \left(\frac{1}{6}\right)$
+
+Geometric sequence: $a + ar + ar^2 + \cdots = \frac{a}{1-r}$ if $|r| < 1$
+
+$a = \frac{1}{6}$, $r = \frac{5}{6}$, so $\left(\frac{5}{6}\right)^2 \left(\frac{1}{6}\right) = \frac{a \cdot r^2}{1 - r} = \frac{(1/6)(5/6)^2}{1/6} = \frac{25}{36}$
+
+Question 2 if $r \geq 1$
+
+$P$ if $A \subseteq B$, then $P(A) \leq P(B)$
+
+\section{Homework}
+
+\subsection{Roll 2 dice}
+Find $P(\text{sum} = 6)$: $S' = \{2, 3, 4, \ldots, 12\}$, $S_Y = \{0, 1, 2, \ldots\}$
+
+Roll 2 dice: Find $P(\text{exactly 4 green})$
+
+$n = 10$, $k = 4$, $p = \frac{10}{50} = 0.2$, $P(4 \text{ green}) = \binom{10}{4}(0.2)^4(0.8)^6$
+
+Binomial pdf $(n, p, k)$: $n \binom{n}{k} = \frac{n!}{k!(n-k)!}$
+
+Choose 5 without replacement:
+
+\subsection{Discrete Random Variables}
+
+\begin{example}
+Roll 2 dice: $X = $ sum of two rolls, $Y = \#$ of 6s
+
+$S_X = \{2, 3, 4, \ldots, 12\}$, $S_Y = \{0, 1, 2\}$
+
+Example: Roll 1 dice, let $X = (1^{\text{st}} \text{ roll})$, $Y = \#$ of $\{$
+
+$S_X = \{2, 3, 4, \ldots, 12\}$, $S_Y = \{0, 1, 2, 3\}$
+\end{example}
+
+\begin{theorem}
+A random variable $X$ is a function from a sample set to the real numbers (with an associated probability distribution).
+\end{theorem}
+
+\textbf{Example:} Roll two dice: $X = $ sum of two rolls, $Y = \#$ of $\{$
+
+$S_X = \{2, 3, 4, \ldots, 12\}$, $S_Y = \{0, 1, 2, 3\}$
+
+\begin{theorem}
+Associated with a random variable is a probability density function (pdf) which gives the probability of all elements.
+\end{theorem}
+
+\begin{theorem}
+The cumulative distribution function (cdf) for $X$ is: $F_X(x) = P(X \leq x)$
+\end{theorem}

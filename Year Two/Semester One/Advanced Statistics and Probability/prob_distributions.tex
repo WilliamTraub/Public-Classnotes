@@ -1,0 +1,146 @@
+\section{Binomial Distribution}
+
+\begin{definition}
+$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$, $k = 0, 1, 2, \ldots, n$
+
+where $n = \#$ of trials, $k = \#$ of successes, $p = P(\text{success in one trial})$, $\binom{n}{k} = $ number of ways choosing $k$ out of $n$
+\end{definition}
+
+\begin{example}
+50 red, 40 red, 10 green
+
+Choose 10 with replacement: Find $P(\text{exactly 4 green})$
+
+$n = 10$, $k = 4$, $p = \frac{10}{50} = 0.2$, $P(4 \text{ green}) = \binom{10}{4}(0.2)^4(0.8)^6$
+\end{example}
+
+\textbf{Binompdf} $(n, p, k)$: $n \binom{n}{k} = \frac{n!}{k!(n-k)!}$
+
+Choose 5 without
+
+\section{Discrete Random Variables}
+
+\begin{example}
+Roll 2 dice, find $P(\text{sum} = 5)$
+
+Choose 10 with replacement: Find $P(\text{exactly 4 green})$
+
+$n = 10$, $k = 4$, $p = \frac{10}{50}$, $p = 0.2$
+
+$P(4 \text{ green}) = \binom{10}{4}(0.2)^4(0.8)^6$
+\end{example}
+
+\section{Continuous Random Variables}
+
+\begin{example}
+Choose a number at random from the interval $[0, 100]$ in $\mathbb{R}$:
+
+$P(X \leq 50) = 0.5$, $P(X \leq 10) = \frac{1}{10}$, $P(X \leq 1) = \frac{1}{100}$, $P(X = 0) = 0$
+
+$P(X \leq V_1) = \int_0^{V_1} p_{2-x} dx = \frac{x^2}{2} \Big|_0^{V_1} = \frac{V_1}{4}$
+\end{example}
+
+\begin{example}
+$P_X(x) = 2x$, $0 \leq x \leq 1$
+
+$P(X \leq V_1) = P(X \leq V_1) = \int_0^{V_1}$
+\end{example}
+
+\begin{definition}
+For $P_X(x)$ to be a pdf, we need: $f_X(x) \geq 0$, $\int_{-\infty}^{\infty} f_X(x) dx = 1$
+\end{definition}
+
+Find the cdf $F_X(x) = P(X \leq x) = \int_{-\infty}^x 2x dx = x^2 \Big|_0^x = x^2$ for $0 \leq x \leq 1$
+
+\begin{example}
+$f_X(x) = 2e^{-2x}$, $x \geq 0$
+
+$P(X \geq 1) \int_1^{\infty} 2e^{-2x} dx = -e^{-2x} \Big|_1^{\infty} = 0 + e^{-2}$
+\end{example}
+
+$f_X(x) = cx^2 e^{x^3}$, $x \geq 0$
+
+Find $c$ so this is a pdf:
+
+$1 = \int_0^{\infty} cx^2 e^{x^3} dx = c\left(-\frac{1}{3} e^{-x^3}\right) \Big|_0^{\infty} = \frac{c}{3} (0 - (-1)) = \frac{c}{3}$
+
+$c = 3$
+
+$P_X(x) = 3x^2 e^{-x^3}$
+
+Find $c$ for pdf: $1 = \int_0^{\infty} c x e^{-2x} dx$
+
+$u = -\frac{1}{2} e^{-2x}$, $dv = x dx$
+
+$dv = 1$, $dv = e^{-x}$
+
+$c\left[-\frac{1}{2} x e^{-2x} - \frac{1}{4} e^{-2x}\right] \Big|_0^{\infty} = c \cdot \frac{1}{4} = 1$, $c = 4$
+
+$f_X(x) = 2x$, $0 \leq x \leq 1$
+
+If $y = 2x + 1$, find $P_Y(y)$
+
+Go through: $F_Y(y) = P(Y \leq y) = P(2x + 1 \leq y) = P\left(x \leq \frac{y-1}{2}\right)$
+
+$= \int_0^{\frac{y-1}{2}} 2x dx = x^2 \Big|_0^{\frac{y-1}{2}} = \left(\frac{y-1}{2}\right)^2 = \frac{(y-1)^2}{4}$, $1 \leq y \leq 3$
+
+$f_Y(y) = \frac{d}{dy}(y-1)^2 = \frac{(y-1)}{2}$ pdf
+
+\section{Expected Value}
+
+\begin{example}
+We have: 3, 2.5, 4, 3.5, 2, 5.5. Mean: $\frac{7.5}{20} = 3.75$
+
+$2\left(\frac{3}{20}\right) + 3\left(\frac{8}{20}\right) + 5\left(\frac{2}{20}\right) = \sum_{i} n_i P(n_i)$
+\end{example}
+
+\begin{definition}
+The expected value of a random variable $X$ is:
+
+\[E(X) = \begin{cases}
+\sum_{x \in S} x \cdot P(X = x) & \text{discrete} \\
+\int_{-\infty}^{\infty} x \cdot f_X(x) dx & \text{continuous}
+\end{cases}\]
+\end{definition}
+
+\begin{example}
+$P(X = x) = \frac{1}{10}$, $x = 1, 2, 3, 4$
+
+$E(X) = \frac{1}{10}[1 + 2 + 3 + 4] = 3$
+
+$P(X = 1) = \frac{1}{10}$
+\end{example}
+
+Roll a die until the first 6, with $\#$ of rolls: Find $E(X)$
+
+$P(X = 1) = \frac{1}{6}$, $P(X = 2) = \left(\frac{5}{6}\right)\left(\frac{1}{6}\right)$, $P(X = k) = \left(\frac{5}{6}\right)^{k-1} \left(\frac{1}{6}\right)$, $k = 1, 2, \ldots$
+
+$E(X) = \sum_{k=1}^{\infty} k \cdot \left(\frac{5}{6}\right)^{k-1} \left(\frac{1}{6}\right)$
+
+$\sum ar^k = \frac{a}{1-r}$, $a + 2ar + 3ar^2 + \cdots = \frac{a}{(1-r)^2}$, $E(X) = \frac{1/6}{(1-5/6)^2} = 6$
+
+Binomial: $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$, $k = 0, 1, \ldots, n$
+
+$E(X) = \sum_{k=0}^n k \binom{n}{k} p^k (1-p)^{n-k} = np$
+
+\subsection{Continuous Example}
+
+$f_X(x) = 2x$, $0 \leq x \leq 1$
+
+$E(X) = \int_0^1 x(2x^2) dx = \frac{2}{3}$
+
+$f_X(x) = 2e^{-2x}$, $x \geq 0$
+
+$E(X) = \int_0^{\infty} x \cdot 2e^{-2x} dx \Rightarrow \hat{\lambda} = \frac{1}{2}$
+
+Toss a coin until the first $T$, if it's on 1st win 1
+
+$1 \cdot P(T \text{ on } 1^{\text{st}}) + 2 \cdot P(T \text{ on } 2^{\text{nd}}) + \cdots = 2^n E(W_n) = 2\left(\frac{1}{2}\right) + 4\left(\frac{1}{4}\right) + \cdots + 2^n \left(\frac{1}{2^n}\right) = \sum_{n=1}^{\infty} 1 = \infty$
+
+$f_X(x) = \frac{1}{2}$, $x \geq 1$
+
+Show this is a pdf:
+
+$1 = \int_1^{\infty} \frac{c}{x^2} dx = -\frac{c}{x} \Big|_1^{\infty} = 0 + 1 = 1 \checkmark$
+
+$E(X) = \int_1^{\infty} x \left(\frac{1}{x^2}\right) dx = \ln(x) \Big|_1^{\infty} = \infty$

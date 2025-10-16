@@ -43,7 +43,6 @@ Icon?
 *.pyc
 __pycache__/
 .gradle/
-build/
 bin/
 target/
 

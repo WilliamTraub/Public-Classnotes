@@ -1,0 +1,117 @@
+\section{The Poisson Distribution}
+
+\begin{definition}
+The Poisson distribution is: $P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}$ for $k \in \mathbb{N}$ (or $k = 0, 1, \ldots$)
+
+$E(X) = \lambda = \text{Var}(X)$
+\end{definition}
+
+This usually gives the number of occurrences in a time interval. Something is Poisson if:
+\begin{enumerate}
+\item The occurrences in $\Delta t$ happen simultaneously
+\item For a short enough time frame, there are 0 or 1 occurrences
+\item Occurrences are independent
+\item The rate of occurrences is constant (only matters well if a $\Delta t$-age unit 2 small)
+\end{enumerate}
+
+\begin{example}
+A TV has 6 million pixels, where the probability that one is defective is $\frac{1}{2}$ mill. $\lambda = $ mean = 5 A mill/2 mill = 2.5
+
+$P(3 \text{ are defective}) \approx e^{-2.5} \frac{(2.5)^3}{3!} = P(\text{Poisson} p(\lambda = 2.5, k)) = 0.2136$
+\end{example}
+
+Find $P(X \geq 3)$: WORK = Poisson $p(\lambda = 2.5, k)$
+
+\begin{example}
+The number of people who walk into a store is Poisson with a mean of $\frac{50}{1 \text{ hour}}$. Find $P(\text{at least in one hour with Poisson} p(\lambda = 2.5, k))$ or $P(3 \text{ in } 10 \text{ mins})$
+
+$\lambda = 3$, Poisson $p(\lambda = 5, k) = 0.104$
+\end{example}
+
+\textbf{Note:} If the number of occurrences is Poisson, then the time between occurrences is exponential: $P(X = k) = \lambda e^{-\lambda k}$ (ECN $\Rightarrow X$)
+
+\begin{example}
+The mean is 492 for two hours: $\lambda = 492$ (for 2 hours)
+
+Find $\lambda$ (in 2 min): $\lambda = \frac{492}{60} \approx 8.0333$, $\lambda^{492}/60 = 8.0333$
+
+Therefore Poisson $p(\lambda = 492/60, k) = 0.029$ or $P(E3; \text{ in } 2 \text{ min}) = $ Poisson $p(\lambda = 492/60, k) = 0.014$
+\end{example}
+
+Find $P(E3; \text{ in } 2 \text{ min}) = $ Poisson $p(\lambda = 492/60, k)$
+
+\begin{example}
+20000 People play, if $P(\text{win}) = \frac{1}{5000}$. Find $P(2>$ People win)
+
+$\lambda = \frac{20000}{5000} = 4$, $1 - P(X \leq 3) = 1 - \text{Poisson} \text{CDF}(4, 2) = \bar{7}(2)$
+\end{example}
+
+\section{The Normal/Gaussian Distribution}
+
+\begin{definition}
+Normal/Gaussian distribution: $f_X(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$, $-\infty < x < \infty$, $-\infty < \mu < \infty$, $\sigma > 0$
+
+Standard: $f_Z(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}$, human
+\end{definition}
+
+\begin{example}
+Find $P(2 \leq (1.2)) = $ Normal $\text{CDF}(2, 100000, 1.2) \cap \mu = 0$ $\Rightarrow P = 0.8849$
+
+\textbf{Lemma:} If $X$ is Normal with $\mu = 100$, $\sigma = 10$
+
+Find $P(2 \leq (1.2))$ If we take a sample of 100 $P(\bar{X} > 52)$ = Normal $\text{CDF}(52, 100000, 50)$
+
+Find a so: $P(\mu = k \leq \mu)$ $\Rightarrow$ inv Normal $\text{CDF}(.75, 100, 10, \text{center})$
+\end{example}
+
+HW 3
+
+Bernoulli: $P(X = 1) = p$, $P(X = 0) = 1 - p$
+
+\begin{enumerate}
+\item[a)] Find $E(X)$ and $\text{Var}(X)$
+
+$E(X) = \sum x P(X = x)$ and $\text{Var}(X)$
+
+b) Let $Y = X_1 + X_2 + \cdots + X_n$ when $X_i = \text{Bernoulli}$ with $P(X_i = 1) = p$ and
+
+$E(Y) \cdot \sum x P(X = x)$
+
+$\text{Var}(Y) = \text{Var}(X_1 + \cdots) = np(1 - p)$
+
+$\text{Var}(Y) = \text{Var}(2X_i) \Rightarrow \text{Var}(\bar{X}_i)^2$
+\end{enumerate}
+
+\section{Central Limit Theorem}
+
+Given a sample $X_1, X_2, X_3, \ldots X_n$ all from the same population taken independently, then $\bar{X} = \frac{1}{n} \sum X_i$ and the sum $\sum X_i$ are normal
+
+No outliers or strong skewed normal converges under sample $E(\frac{\bar{X} - \mu}{\sigma/\sqrt{n}})$ $\Rightarrow$ so $sd(\bar{X}) = \frac{\sigma}{\sqrt{n}}$, $\text{Var}(\bar{X}) = n\sigma^2$
+
+For $X$ we know $\mu = 50$, $\sigma = 8$
+
+Find $P(\bar{X} > 52) = ?$ If we take a sample of 100 $P(\bar{X} > 52) = $ Normal $\text{CDF}(52, 10000, 50, 30)$
+
+Find $P(X > 52) = ?$ Find a $P(\mu \leq k \leq \mu)$ $\Rightarrow$ $a$ with $P(X \geq 52) = $ Normal $\text{CDF}(52, 10000, 50, 30) = 0.0062$
+
+Find a so that $P(\mu \leq k \leq \mu)$: inv Normal $(1.75, 100, 10, \text{center})$
+
+\begin{example}
+$X$ is normal with $\mu = 12$, $\sigma = 42$
+
+Find $P(X \leq 150) = $ Normal $\text{CDF}(10000, 130, 12, 41) = 0.0655$
+
+With a sample of 400: Find $P(10 \leq \bar{X} \leq 1(2)) = $ Normal $\text{CDF}(112, 110, 112, 41/\sqrt{400})$
+\end{example}
+
+\begin{example}
+Roll a dice 600 times, estimate $P(90 \leq \# \text{ of } 6 \text{'s} \leq 115)$: Mean = $np = 106$
+
+variance $= np(1 - p) = \frac{500}{6} \approx 71.27$
+
+continuity correction: $P(\bar{X} < 70) \Rightarrow P(\bar{X} \leq 70.5)$ $\Rightarrow$
+
+$P(10 \leq k \leq 115) = P(90.52 k \leq 115) = $ Normal $\text{CDF}(115, 90.5, 115.5, 70.5, 100.5)$
+
+$k < 100 \Rightarrow X \leq 100.5$, $X \geq 100 \Rightarrow X \geq 99.5$
+\end{example}
