@@ -1,10 +1,10 @@
 \section{October 21}
 For each object O, let $<O>$ be a string that encodes O. 
 \begin{itemize}
-    \item If i is an integer $<i>$ can be its representation
-    \item If O is a string, then $<O>$ is just O itself.
-    \item If G is a graph $<G>$ can be defined in many ways; such as vertex lists, etc
-    \item If M is a TM, we can define $<M>$ by writing down the formal definition. $M = (Q, \Sigma, \Gamma, \delta, q_{start}, q_{accept}, q_{reject})$
+  \item If i is an integer $<i>$ can be its representation
+  \item If O is a string, then $<O>$ is just O itself.
+  \item If G is a graph $<G>$ can be defined in many ways; such as vertex lists, etc
+  \item If M is a TM, we can define $<M>$ by writing down the formal definition. $M = (Q, \Sigma, \Gamma, \delta, q_{start}, q_{accept}, q_{reject})$
 \end{itemize}
 Now we will consider more complex languages, i.e. primes, graphs, etc.
 
@@ -19,4 +19,20 @@ Now we will consider more complex languages, i.e. primes, graphs, etc.
   \end{itemize}
   \item TMs are algorithms and a universal TM is a general purpose computer.
 \end{itemize}
+
+\subsection{Non-deterministic TM}
+\begin{itemize}
+  \item Multiple possible actions the TM can take at any point in time.
+  \item Transition function is $\delta : Q \times \Gamma \to \mathcal{P}(Q \times \Gamma \times \{L, R\})$
+  \item TM accepts if there ecists some way to run the computation that ends in an accept state.
+  \item TM rejects if all computations reject.
+\end{itemize}
+
+Compiler: NDTM to TMs
+\begin{itemize}
+  \item THink of computation of a non-deterministic TM as a tree of TM configutations.
+  \item Using a deterministic TM, explore this tree using a breadth-first seach. If it finds an accepting configurations, accept. If all branches reject, reject.
+  \item If the NDTM runs for N steps, what's the run-time of the above algorithm.
+\end{itemize}
+
 
