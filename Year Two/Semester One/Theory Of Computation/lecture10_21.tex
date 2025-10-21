@@ -1,0 +1,22 @@
+\section{October 21}
+For each object O, let $<O>$ be a string that encodes O. 
+\begin{itemize}
+    \item If i is an integer $<i>$ can be its representation
+    \item If O is a string, then $<O>$ is just O itself.
+    \item If G is a graph $<G>$ can be defined in many ways; such as vertex lists, etc
+    \item If M is a TM, we can define $<M>$ by writing down the formal definition. $M = (Q, \Sigma, \Gamma, \delta, q_{start}, q_{accept}, q_{reject})$
+\end{itemize}
+Now we will consider more complex languages, i.e. primes, graphs, etc.
+
+\subsection{Universal Turing Machine}
+\begin{itemize}
+  \item There is a Turing Machine $M_{\text{UNIV}}$ that can run any other TM.
+  \item $M_{\text{UNIV}}(<M>, w)$. Takes as input a description of any TM M and any string W. Runs M on w.
+  \begin{itemize}
+    \item If M accepts w, then $M_{\text{UNIV}}(<M>, w)$ accepts.
+    \item If M rejects w, then $M_{\text{UNIV}}(<M>, w)$ rejects.
+    \item If M loops on w, then $M_{\text{UNIV}}(<M>, w)$ also loops.
+  \end{itemize}
+  \item TMs are algorithms and a universal TM is a general purpose computer.
+\end{itemize}
+
