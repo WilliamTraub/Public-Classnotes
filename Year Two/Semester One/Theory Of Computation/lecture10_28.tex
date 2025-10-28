@@ -1,0 +1,101 @@
+\section{October 28}
+Goal: Show some languages are not decidable.
+\subsection{Comparing Infinities}
+There are many infinite sets:
+\begin{itemize}
+  \item $\mathbb{N}$ - Natural numbers
+  \item Even numbers
+  \item $\mathbb{Q}$ - Rationals
+\end{itemize}
+Some infinite sets are bigger than others. We can show that one set A is larger than another B if a one-to-one map exists between B and A.
+\\
+If there is a one-to-one function in both directions, B is the same size as A.
+\\
+Natural numbers are the "smallest" infinite set, if A is infinite: $|\mathbb{N}| \leq |A| $. An infinite set A is countable if $|A| = |\mathbb{N}|$. We can also show $|A| \leq |\mathbb{N}|$ as there is no set $|S| < |\mathbb{N}|$.
+
+\subsection{Uncountablility}
+To show A is uncountable, it is enough to show some set $|B| \leq |A|$ where B is uncountable. 
+\\
+\textbf{Proof:} Because of the transitivity of the $\leq$ operator, 
+\begin{itemize}
+  \item The real numbers $\mathbb{R}$ are uncountable: $|\mathbb{S}| \leq |\mathbb{R}|$. The one-to-one function $f: \mathbb{S} \to \mathbb{R}$ defined by: $f(s) = .a_1 a_2 .a_3...$ (in decimal) where $s = a_1, a_2, a_3 ...$
+  \item The set $\mathbb{P}$ PowerSet($\mathbb{N}$) is uncountable: $|\mathbb{S}| \leq |\mathbb{P}|$. One-to-one function $f: \mathbb{S} \to \mathbb{P}$ is defined by $f(s) = \{i : a_i = 1 \}$ where $s = a_1, a_2, a_3 ...$
+\end{itemize}
+
+\subsection{Undecidability}
+We know:
+\begin{itemize}
+  \item The set $\mathbb{L}$ of all languages is uncountable.
+  \item The set $\mathbb{M}$ of all TM's are countably infinite.
+\end{itemize}
+Because of the previous proof, we know that $|\mathbb{M}| \leq |\mathbb{L}|$
+\\
+We will show $A_{TM} = \{<M,w> : \text{M is a TM that accepts w} \}$ is undecidable. 
+\\
+Given a description of a TM M and a string w:
+\begin{enumerate}
+  \item Decide if M accepts w. (this is $A_{TM}$)
+  \item Decide if M halts on the input w.
+  \item Decide if M halts on empty input $\varepsilon$
+  \item Decide if $L(M) = \emptyset$
+\end{enumerate}
+
+\subsection{The TM Self-Acceptance Problem}
+Take the turing machine $SA_{TM} = \{<M> : \text{M is a TM that accepts }<M>\}$
+\\
+The complement of this: $SU_{TM} = \{<M> : \text{M is a TM that does not accept} <M> \}$
+\begin{enumerate}
+  \item A TM is "self-accepting" if it accepts the string $<M>$ denoting its own description
+  \item To decide the language $SA_{TM}$, you need to design an algorithm that gets $<M>$ and decides M is self-accepting.
+  \item $SA_{TM}$, $SU_{TM}$ are complements of each other (assume every string denotes some TM). One is decidable $\iff$ the other is.
+\end{enumerate}
+\begin{theorem}
+  \textbf{Claim:} $SU_{TM}$ is an undecidable language.
+  \\ \textbf{Proof:} By contradiction, Assume we have a decider D (a TM that always halts for $SU_{TM}$). D accepts $<M> \iff$ M does not accept $<M>$.
+  \\
+  This can be rewritten as D accepts $<D> \iff$ D does not accept $<D>$, hence we arrive at a contradiction.
+\end{theorem}
+
+\subsection{Undecidability as Diagonalization}
+Because the set of all TMs are countable, we can create the matrix $[M_i \times <M_i>]$ where the diagonals of the row show when the TM accepts (resp. rejects) itself.
+\\
+We can use this to directly prove undecidability of self-acceptance.
+\\
+Suppose by contradiction there exists a decider D for $SA_{TM} = \{<M> \vert \text{ M accepts} <M> \}$. We can construct $M^*(<M>)$: Outputs $\neg D(<M>)$
+\\
+Consider $M^*(<M^*>)$ (the diagonal position in our matrix). This would result in $M^*(<M^*>) \text{accepts} \iff D(<M^*>) \text{rejects} \iff \neg (M^*(<M^*>) \text{accepts})$. This results in a contradiction and therefore a counterexample.
+
+\subsection{Reductions in Undecidability}
+The TM Acceptance problem: $A_{TM} = \{<M,w> : \text{M is a TM that accepts w} \}$.
+\\
+We previously showed that $SA_{TM} = \{<M> \vert \text{ M accepts} <M> \}$ is undecidable. If we had a decider $D_A$ for $A_{TM}$, we could construct a decider $D_S$ for $SA_{TM}$. 
+\\
+$D_S(<M>) \{ \text{Output }D_A(<M , M>) \}$
+\\
+Use reduction to solve problems. Reduce problem A to B - show how to solve A given a way to solve B. 
+\\
+If A and B are languages, than we reduce A to B by constructing decider $D_B$ as a subroutine.
+\\
+By reducing A to B, we show:
+\begin{itemize}
+  \item If B is decidable then A is decidable. (algorithms)
+  \item If A is undecidable then B is undecidable. (this course)
+\end{itemize}
+
+\subsubsection{Halting Problem}
+Consider the TM $H = \{ <M, w> : \text{M is a TM and M halts on w} \}$
+\begin{theorem}
+  \textbf{Claim:} H is undecidable.
+  \\ \textbf{Proof:} Reduce $A_{TM}$ to H.
+  \\
+  Construct decider $D_{ATM}$ using decider $D_H$ as a subroutine.
+  \\
+  $D_{ATM}(<M, w>) \{$
+  \\ \indent Run $D_H(<M,w>)$ and if it rejects, output reject;
+  \\ \indent Else run M(w) and output whatever it outputs;
+  \\ $\}$
+  \\
+  Because we know that $D_H$ is a decider $D_{ATM}$ always halts.
+  \\
+  $\forall <M,w>, <M,w> \in A_{TM} \iff D_{ATM}(<M,w>) \text{accepts} \iff \text{M accepts w} \iff $
+\end{theorem}
