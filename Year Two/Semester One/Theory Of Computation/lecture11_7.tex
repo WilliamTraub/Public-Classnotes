@@ -1,0 +1,46 @@
+\section{November 7}
+\subsection{Proof Systems}
+By Russel's Paradox, sets "cannot" be non-wellfounded.
+\begin{corollary}
+  There is no "proof system" in Number Theory
+  \begin{itemize}
+    \item Soundness: No false statement $\phi$ has a valid proof $\pi$.
+    \item Completeness: Every trye statement $\phi$ has a valid proof $\pi$.
+    \item Decidability: Can decide if $\pi$ is a valid proof for $\phi$
+  \end{itemize}
+\end{corollary}
+We generally give up soundness for completeness.
+\begin{proof}
+  If there was a proof system for number theory, then we could decide number theory.
+  \begin{itemize}
+    \item Given $\phi$ try all valid strings $\pi$ one-by-one:
+    \begin{itemize}
+      \item Check if $\pi$ is a valid proof of $\phi$. If so, accept.
+      \item Check if $\pi$ is a valid proof of $\neg \phi$. If so, reject.
+    \end{itemize}
+  \end{itemize}
+\end{proof}
+
+\subsection{Gödel's Sentence}
+We want to construct a statement in a proof system that is true and unprovable.
+\\
+Take proposition p(x) = "p(x) is unprovable."
+\begin{enumerate}
+  \item Proving p(x) is true: $\neg p(x) \implies p(x) \text{ is provable } \implies p(x)$ by the property of soundedness in proof systems. This is clearly a contradiction.
+  \item If p(x) is true, it must also be unprovable.
+\end{enumerate}
+Showing that a proposition can describe itself.
+\\
+$\Phi^*(n):$
+\begin{enumerate}
+  \item parse n as $\langle \phi \rangle$
+  \item True, if $\nexists$ proof for $\phi(n)$
+\end{enumerate}
+$\phi^*(n) := \nexists$ proof for $\phi(n)$ where $\langle \phi \rangle = n$.
+\\
+Consider $\phi^*(\langle \phi^* \rangle)$
+\begin{enumerate}
+  \item Proving $\phi^*(\langle \phi^* \rangle)$ is true: Suppose not, $\implies \exists$ proof for $\phi^*(\langle \phi^* \rangle)$. By soundedness, we then know that $\phi^*(\langle \phi^* \rangle)$ is true.
+  \item Proving $\phi^*(\langle \phi^* \rangle)$ is unprovable: Suppose not, $\implies \phi^*(\langle \phi^* \rangle)$ is true which results in a contradiction.
+\end{enumerate}
+We can use diagonalization to build a matrix where each row represents the mathematical equation $phi$ and each column represents a natural number n. Each cell represents if there exists a proof for $\phi(n)$.
