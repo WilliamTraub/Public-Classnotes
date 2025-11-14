@@ -1,0 +1,17 @@
+\section{Exam 2 Prep November 13}
+\includegraphics[scale=0.5]{build/language_sets.png}
+\\
+\begin{itemize}
+  \item The set $\mathbb{S}$ of all infinite binary sequences is uncountable. We can show a set is uncountable by proving it is larger than $\mathbb{S}$
+  \item The TM Acceptance problem: $A_{TM} = \{\langle M,w \rangle : \text{M is a TM that accepts w} \}$.
+  \item $A_{TM}$ is recognizable but not decidable. $\overline{A_{TM}}$ is not recognizable.
+  \item A language is decidable $\iff$ it is Turing-recognizable and    co-Turing-recognizable.
+  \item If A is reducible to B and B is decidable, A also is
+  decidable. Equivalently, if A is undecidable and reducible to B, B is undecidable.
+  \item By reducing A to B, we show if A is undecidable then B is undecidable.
+  \item If $A \leq_m B$ and B is decidable, then A is decidable.
+  \item If $A \leq_m B$ and A is decidable, then B is undecidable.
+  \item The set of all Turing machines is countable, because every Turing machine has a finite, unique description.
+  \item Any Turing-undecidable language is also non-regular, because its contrapositive is true: any regular language is decidable by Turing machines.
+  \item Rice's theorem. Let P be any nontrivial property of the language of a Turing machine. Prove that the problem of determining whether a given Turing machine's language has property P is undecidable.
+\end{itemize}

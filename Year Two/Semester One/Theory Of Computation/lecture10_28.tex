@@ -30,7 +30,7 @@ We know:
 \end{itemize}
 Because of the previous proof, we know that $|\mathbb{M}| \leq |\mathbb{L}|$
 \\
-We will show $A_{TM} = \{<M,w> : \text{M is a TM that accepts w} \}$ is undecidable. 
+We will show $A_{TM} = \{\langle M,w \rangle  : \text{M is a TM that accepts w} \}$ is undecidable. 
 \\
 Given a description of a TM M and a string w:
 \begin{enumerate}
@@ -41,36 +41,36 @@ Given a description of a TM M and a string w:
 \end{enumerate}
 
 \subsection{The TM Self-Acceptance Problem}
-Take the turing machine $SA_{TM} = \{<M> : \text{M is a TM that accepts }<M>\}$
+Take the turing machine $SA_{TM} = \{\langle M \rangle  : \text{M is a TM that accepts }\langle M \rangle \}$
 \\
-The complement of this: $SU_{TM} = \{<M> : \text{M is a TM that does not accept} <M> \}$
+The complement of this: $SU_{TM} = \{\langle M \rangle  : \text{M is a TM that does not accept} \langle M \rangle  \}$
 \begin{enumerate}
-  \item A TM is "self-accepting" if it accepts the string $<M>$ denoting its own description
-  \item To decide the language $SA_{TM}$, you need to design an algorithm that gets $<M>$ and decides M is self-accepting.
+  \item A TM is "self-accepting" if it accepts the string $\langle M \rangle $ denoting its own description
+  \item To decide the language $SA_{TM}$, you need to design an algorithm that gets $\langle M \rangle $ and decides M is self-accepting.
   \item $SA_{TM}$, $SU_{TM}$ are complements of each other (assume every string denotes some TM). One is decidable $\iff$ the other is.
 \end{enumerate}
 \begin{theorem}
   \textbf{Claim:} $SU_{TM}$ is an undecidable language.
-  \\ \textbf{Proof:} By contradiction, Assume we have a decider D (a TM that always halts for $SU_{TM}$). D accepts $<M> \iff$ M does not accept $<M>$.
+  \\ \textbf{Proof:} By contradiction, Assume we have a decider D (a TM that always halts for $SU_{TM}$). D accepts $\langle M \rangle  \iff$ M does not accept $\langle M \rangle $.
   \\
-  This can be rewritten as D accepts $<D> \iff$ D does not accept $<D>$, hence we arrive at a contradiction.
+  This can be rewritten as D accepts $\langle D \rangle  \iff$ D does not accept $\langle D \rangle $, hence we arrive at a contradiction.
 \end{theorem}
 
 \subsection{Undecidability as Diagonalization}
-Because the set of all TMs are countable, we can create the matrix $[M_i \times <M_i>]$ where the diagonals of the row show when the TM accepts (resp. rejects) itself.
+Because the set of all TMs are countable, we can create the matrix $[M_i \times \langle M_i \rangle ]$ where the diagonals of the row show when the TM accepts (resp. rejects) itself.
 \\
 We can use this to directly prove undecidability of self-acceptance.
 \\
-Suppose by contradiction there exists a decider D for $SA_{TM} = \{<M> \vert \text{ M accepts} <M> \}$. We can construct $M^*(<M>)$: Outputs $\neg D(<M>)$
+Suppose by contradiction there exists a decider D for $SA_{TM} = \{\langle M \rangle  \vert \text{ M accepts} \langle M \rangle  \}$. We can construct $M^*(\langle M \rangle )$: Outputs $\neg D(\langle M \rangle )$
 \\
-Consider $M^*(<M^*>)$ (the diagonal position in our matrix). This would result in $M^*(<M^*>) \text{accepts} \iff D(<M^*>) \text{rejects} \iff \neg (M^*(<M^*>) \text{accepts})$. This results in a contradiction and therefore a counterexample.
+Consider $M^*(\langle M^* \rangle )$ (the diagonal position in our matrix). This would result in $M^*(\langle M^* \rangle ) \text{accepts} \iff D(\langle M^* \rangle ) \text{rejects} \iff \neg (M^*(\langle M^* \rangle ) \text{accepts})$. This results in a contradiction and therefore a counterexample.
 
 \subsection{Reductions in Undecidability}
-The TM Acceptance problem: $A_{TM} = \{<M,w> : \text{M is a TM that accepts w} \}$.
+The TM Acceptance problem: $A_{TM} = \{\langle M,w \rangle  : \text{M is a TM that accepts w} \}$.
 \\
-We previously showed that $SA_{TM} = \{<M> \vert \text{ M accepts} <M> \}$ is undecidable. If we had a decider $D_A$ for $A_{TM}$, we could construct a decider $D_S$ for $SA_{TM}$. 
+We previously showed that $SA_{TM} = \{\langle M \rangle  \vert \text{ M accepts} \langle M \rangle \}$ is undecidable. If we had a decider $D_A$ for $A_{TM}$, we could construct a decider $D_S$ for $SA_{TM}$. 
 \\
-$D_S(<M>) \{ \text{Output }D_A(<M , M>) \}$
+$D_S(\langle M \rangle ) \{ \text{Output }D_A(\langle M , M \rangle ) \}$
 \\
 Use reduction to solve problems. Reduce problem A to B - show how to solve A given a way to solve B. 
 \\
@@ -83,19 +83,19 @@ By reducing A to B, we show:
 \end{itemize}
 
 \subsubsection{Halting Problem}
-Consider the TM $H = \{ <M, w> : \text{M is a TM and M halts on w} \}$
+Consider the TM $H = \{ \langle M, w \rangle : \text{M is a TM and M halts on w} \}$
 \begin{theorem}
   \textbf{Claim:} H is undecidable.
   \\ \textbf{Proof:} Reduce $A_{TM}$ to H.
   \\
   Construct decider $D_{ATM}$ using decider $D_H$ as a subroutine.
   \\
-  $D_{ATM}(<M, w>) \{$
-  \\ \indent Run $D_H(<M,w>)$ and if it rejects, output reject;
+  $D_{ATM}(\langle M, w \rangle ) \{$
+  \\ \indent Run $D_H(\langle M,w \rangle )$ and if it rejects, output reject;
   \\ \indent Else run M(w) and output whatever it outputs;
   \\ $\}$
   \\
   Because we know that $D_H$ is a decider $D_{ATM}$ always halts.
   \\
-  $\forall <M,w>, <M,w> \in A_{TM} \iff D_{ATM}(<M,w>) \text{accepts} \iff \text{M accepts w} \iff $
+  $\forall \langle M,w \rangle , \langle M,w \rangle  \in A_{TM} \iff D_{ATM}(\langle M,w \rangle ) \text{accepts} \iff \text{M accepts w} \iff $
 \end{theorem}
