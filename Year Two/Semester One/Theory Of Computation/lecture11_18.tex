@@ -1,0 +1,62 @@
+\section{November 18 - Efficiency (P and NP)}
+Are there problems that can be computed, but cannot be computed efficiently? Proving they cannot be computed efficiently using reductions.
+\subsection{What is Efficiency?}
+If we could compute B efficiently then we could compute A efficiently.
+\begin{definition}
+  The \textbf{run-time} of a TM M on input w is the number of syeps the TM takes before it halts. 
+  This is a function $$f(n) = \text{max} \{\text{run-time of M on w} : |w| = n \}$$
+\end{definition}
+This is the worst-case runtime of M on input of length n.
+\\
+Often we don't care abot the exact runtime, but instead the asymptotic runtime.
+\begin{example}
+  Primality Testing:
+  \begin{lstlisting}
+    // decide whether q is prime
+    boolean IsPrime(q) {
+      for (i = 2; i < q; i++) {
+        if (q % i == 0) reject and halt
+      }
+      accept and halt
+    }
+  \end{lstlisting}
+  The runtime of IsPrime is exponential.
+\end{example}
+\subsection{Asymptotic Notation}
+\begin{itemize}
+  \item A function $g(n) = O(f(n))$ if there is some constant $c$ such that for all large enough $n: g(n) \leq c f(n)$. Really $O(f(n))$ is a set of functions, $g(n) \in O(f(n))$
+  \item Example: $2n^2 + 5n + 7 = O(n^2)$ O only gives an upper bound so this is also $O(n^3)$
+\end{itemize}
+We define a class of languages:
+\\
+$TIME(t(n)) = \{L : \exists $ TM M with runtime O(t(n)), M decides L $\}$
+\\
+Some observations:
+\begin{itemize}
+  \item $REGULAR \subseteq TIME(n)$
+  \item $TIME(2^n) \subseteq DECIDABLE$
+\end{itemize}
+This classification is reliant on the model used (i.e. a Java program might have O(n) but a TM might be different). Though the difference aren't too big.
+\subsection{Polynomial Functions}
+\begin{itemize}
+  \item A \textbf{Polynomial function} poly(n) = $\cup_c O(n^c) = O(n) \cup O(n^2) \cup O(n^3) \dots$
+  
+  \item g(n) = poly(n) if and only if there exist constants $c, c'$ such that for all large enough $n: g(n) \leq c n^{c'}$
+  \item Composition if f(n), g(n) = poly(n) then $f(g(n)), f(n)g(n), (f(n))^p = poly(n)$
+  \item If the runtime of a TM M is some function t(n) = poly(n) then we say that M “runs in polynomial-time”. 
+\end{itemize}
+The Class $P = \cup \:\: TIME(n^c)$ = the languages that can be decided in time poly(n).
+\\
+We think of $P$ as the class of langyages that can be decided "efficiently".
+\\
+The class $P$ is the same if we use any model.
+\\
+\textbf{Extended Church-Turing thesis}: the class $P$ is the same in any "realistic" model of computation. This is more controversial as the definition of "realisitic" is disputed.
+\\
+Problems in P
+\begin{itemize}
+  \item Regular languages
+  \item Arithmetic: addition, multiplication, division, exponentiation, etc.
+  \item Everything in algorithms class.
+\end{itemize}
+
