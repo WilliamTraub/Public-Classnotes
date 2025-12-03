@@ -1,0 +1,55 @@
+\section{December 2}
+\subsection{SUBSET-SUM}
+\begin{theorem}
+  $SUBSET \mydash SUM \in P \implies 3SAT \in P$
+\end{theorem}
+Proof outline:
+\\ We give TM $R$ that on input $\phi$:
+\begin{itemize}
+  \item computes numbers $a_1, a_2, \dots, a_n, t$ such that 
+  $$\phi \in 3SAT \iff (a_1, a_2, \dots, a_n, t) \in SUBSET\mydash SUM$$
+\end{itemize}
+We can use binary encoding of boolean values.
+\begin{example}
+  $$\phi = (x \lor y \lor z) \land (\neg x \lor \neg y \lor z) \land (x \lor y \lor \neg z)$$
+  3 variables + 3 clauses (v = 3, c = 3) $\Rightarrow$ 6 digits for each number. For each clause in $C$, include two occurances of $a_c = 1$ in C's digit and 0 in others. Set t = 1 in the first $v$ digits and 3 in the rest $k$ digits
+  \begin{center}
+    \begin{tabular}{c c c c c c c}
+      & x & y & z & 1 & 2 & 3 \\
+      \hline
+      $a_x^T =$ & 1 & 0 & 0 & 1 & 0 & 1 \\
+      $a_x^F =$ & 1 & 0 & 0 & 0 & 1 & 0 \\
+      $a_y^T =$ & 0 & 1 & 0 & 1 & 0 & 1 \\
+      $a_y^F =$ & 0 & 1 & 0 & 0 & 1 & 0 \\
+      $a_z^T =$ & 0 & 0 & 1 & 1 & 1 & 0 \\
+      $a_z^F =$ & 0 & 0 & 1 & 0 & 0 & 1 \\
+      $2 \cdot a_{c1} =$ & 0 & 0 & 0 & 1 & 0 & 0 \\
+      $2 \cdot a_{c2} =$ & 0 & 0 & 0 & 0 & 1 & 0 \\
+      $2 \cdot a_{c3} =$ & 0 & 0 & 0 & 0 & 0 & 1 \\
+      $t =$ & 1 & 1 & 1 & 3 & 3 & 3 \\
+    \end{tabular}
+  \end{center}
+\end{example}
+\begin{proof}
+  $(\Rightarrow)$ suppose $\phi$ has satisfying assingment, pick $a_x^T$ if x is true, else $a_x^F$. The sum of these numbers yield 1 in the first $v$ digits because $a_x^T, a_x^F$ have 1 in x's digit and 0 in others, and 1, 2, 3 in the last k digits.
+\end{proof}
+\newpage
+\subsection{Optimization Problems}
+\begin{example}
+  The knapsack problem: REDUCE SUB-SUM to knapsack
+  List = (value$_1$, weight$_1$), ... ,(value$_n$, weight$_n$)
+\end{example}
+\begin{theorem}
+  Cook-Levin Theorem: $3SAT \in P \implies P = NP$.
+
+  \begin{lemma}
+    Every function $f : \{0, 1 \}^m \to \{0, 1 \}$ can be represented by a CNF formula $\phi$ of size $\leq m \cdot 2^m$.
+    \\
+    \textbf{Proof:} For each value that makes f evaluate to 0, add a clause to ensure variables can't take that value.
+    \begin{example}
+      $f(x_1 = 1, x_2 = 0, x_3 = 1, \dots , x_m = 0) = 0$
+      \\
+      Add the clause $(\neg x_1 \lor x_2 \lor \neg x_3 \lor \dots \lor x_m)$
+    \end{example}
+  \end{lemma}
+\end{theorem}
