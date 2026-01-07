@@ -1,0 +1,203 @@
+\section{Final Exam Prep}
+\subsection{Problem 1: True, False, or Unknown (20 pts)}
+Indicate T, F, or U.
+
+\begin{enumerate}
+    \item If a language is in P, then it is also in NP. - True. all languages in P can be decided in polynomial time and thus they can also be verified. We can simply create a verifier that ignores the certificate, runs the decider and output what the decider outputs.
+    \item The complement of an undecidable language must be undecidable. false
+    \item If $\text{SAT} \le_p L$ and $L$ is decidable in polynomial time, then $P = NP$. True
+    \item Every infinite regular language has an infinite complement. - true
+    \item If $M$ is a Turing machine that halts on all inputs, then $L(M)$ is decidable. - True
+    \item If $A \le_p B$ and $B$ is regular, then $A$ must be regular.
+    \item The language $\{\langle M \rangle : M \text{ halts on at least one input}\}$ is decidable. - false
+    \item For any languages $A$ and $B$, if $A \cup B$ is decidable, then both $A$ and $B$ are decidable. false
+    \item If a language is NP-complete, then its complement is also NP-complete. 
+\end{enumerate}
+
+\subsection{Problem 2: Short Answer (15 pts)}
+
+\begin{enumerate}
+    \item Construct an NFA for the language over $\Sigma = \{0,1\}$ consisting of all strings that end with $010$.
+    \item Give a context-free grammar for the language 
+    \[
+        L = \{0^n 1^m : n \le m\}.
+    \]
+    \item Define polynomial-time many-one reducibility and explain why such reductions preserve NP-completeness.
+\end{enumerate}
+
+\subsection{Problem 3: Undecidability (10 pts)}
+
+Define
+\[
+H_{\infty} = \{\langle M \rangle : M \text{ halts on infinitely many inputs}\}.
+\]
+Show that $H_{\infty}$ is undecidable. You must reduce from a known undecidable language (such as $HALT$ or $A_{TM}$). Do not use Rice's Theorem.
+
+By contradiction decider $D_{ATM} \{$
+1. define
+
+\subsection{Problem 4: NP-Completeness (10 pts)}
+
+Define the decision problem \textsc{Even-Path-Sum}:
+
+\begin{quote}
+\textbf{Input:} A directed graph $G = (V,E)$, a weight function $w : E \to \mathbb{Z}$, and two vertices $s,t \in V$, and a target integer $k$.  
+\textbf{Output:} YES iff:
+\begin{enumerate}
+    \item every edge on every $s$--$t$ path has even weight, and
+    \item there exists at least one $s$--$t$ path whose total weight is exactly $k$.
+\end{enumerate}
+\end{quote}
+
+\begin{enumerate}
+    \item[(a)] Prove that \textsc{Even-Path-Sum} is in NP.
+    \item[(b)] Prove that \textsc{Even-Path-Sum} is NP-complete by giving a polynomial-time reduction from a known NP-complete problem.
+\end{enumerate}
+\textbf{A:}
+\\
+Certificate: 
+\newpage
+\subsection{Summary of Post-Midterm 2 Topics}
+
+\textbf{Runtime of Turing Machines.}
+The runtime of a Turing machine on input $x$ is the number of steps taken before halting.  
+For inputs of length $n$, the worst-case runtime is described by a function $t(n)$.
+
+
+
+\textbf{TIME$(t(n))$.}
+The class $\mathrm{TIME}(t(n))$ consists of all languages decidable by a deterministic
+Turing machine in $O(t(n))$ time.
+
+
+
+\textbf{P.}
+$P$ is the class of decision problems solvable in polynomial time on deterministic
+Turing machines.
+
+
+
+\textbf{NP.}
+$NP$ is the class of languages whose membership can be verified in polynomial time given
+a suitable certificate. A language is in $NP$ if there exists a polynomial-time deterministic verifier.
+
+
+
+\textbf{Polynomial-Time Reductions.}
+A language $A$ polynomial-time reduces to $B$ (written $A \le_p B$) if there exists a
+polynomial-time computable function $f$ such that
+\[
+x \in A \iff f(x) \in B.
+\]
+Such reductions preserve computational hardness.
+
+
+
+\textbf{Polynomial-Time Mapping Reductions.}
+These are the standard many-one reductions used in complexity theory: a single
+polynomial-time transformation maps instances of one problem to another while preserving
+YES/NO answers.
+
+
+
+\textbf{NP-Completeness.}
+A language $L$ is NP-complete if:
+\begin{enumerate}
+    \item $L \in NP$, and
+    \item for every language $A \in NP$, $A \le_p L$.
+\end{enumerate}
+NP-complete problems are the hardest problems in $NP$.
+
+
+
+\textbf{SAT.}
+The Boolean satisfiability problem asks whether a Boolean formula has a truth assignment
+that makes it true. SAT is NP-complete.
+
+
+
+\textbf{3SAT.}
+A restricted form of SAT in which the formula is in CNF and every clause contains
+exactly three literals. 3SAT is NP-complete and serves as a central source of reductions.
+
+
+
+\textbf{CLIQUE.}
+Given a graph $G$ and integer $k$, determine whether $G$ contains a clique of size $k$.
+CLIQUE is NP-complete via a reduction from 3SAT.
+
+
+
+\textbf{SUBSET-SUM.}
+Given integers $a_1,\dots,a_n$ and a target $t$, the problem asks whether some subset
+sums to $t$. SUBSET-SUM is NP-complete.
+
+
+
+\textbf{3COLOR.}
+Given a graph, determine whether its vertices can be colored using three colors so that
+adjacent vertices receive different colors. 3COLOR is NP-complete via reductions from 3SAT.
+
+
+
+\textbf{Cook--Levin Theorem.}
+This theorem establishes that SAT is NP-complete by showing that every nondeterministic
+polynomial-time computation can be encoded as a Boolean formula whose satisfiability
+captures exactly the accepting computations of the machine.
+
+\newpage
+\subsection{Additional Reference Material}
+
+\textbf{Closure Properties of Complexity Classes.}
+\begin{itemize}
+    \item $P$ is closed under union, intersection, complement, concatenation, and Kleene star.
+    \item $NP$ is closed under union and concatenation; complement closure is unknown.
+    \item Regular languages and context-free languages are closed under standard Boolean operations (except CFLs are not closed under intersection or complement).
+\end{itemize}
+
+
+
+\textbf{Undecidability Results.}
+\begin{itemize}
+    \item $HALT = \{\langle M,w\rangle : M \text{ halts on } w\}$ is undecidable.
+    \item $A_{TM} = \{\langle M,w\rangle : M \text{ accepts } w\}$ is undecidable.
+    \item $HALT_{TM}$, $EQ_{TM}$, $REGULAR_{TM}$, and $\{\langle M\rangle : L(M) = \emptyset\}$ are undecidable.
+    \item Reductions from $HALT$ or $A_{TM}$ are the standard method to prove undecidability.
+\end{itemize}
+
+\textbf{Standard Techniques for Proving Undecidability.}
+\begin{itemize}
+    \item Construct a Turing machine $N$ that simulates $M$ on a fixed input.
+    \item Embed the behavior of $M$ into $N$ so that questions about $N$ encode questions about $M$.
+    \item Flip acceptance and rejection or force halting to control the target language.
+\end{itemize}
+
+
+
+\textbf{Useful Definitions.}
+\begin{itemize}
+    \item A \emph{decider} always halts on all inputs.
+    \item A language is \emph{recognizable} if some TM accepts exactly its strings.
+    \item A language is \emph{co-recognizable} if its complement is recognizable.
+    \item A function $f$ is a polynomial-time reduction if $f$ is computable in polynomial time and $x \in A \iff f(x) \in B.$
+\end{itemize}
+
+
+
+\textbf{Reductions You Should Know.}
+\begin{itemize}
+    \item $SAT \le_p 3SAT$
+    \item $3SAT \le_p \textsc{CLIQUE}$
+    \item $3SAT \le_p \textsc{3COLOR}$
+    \item $3SAT \le_p \textsc{Vertex Cover}$
+    \item $\textsc{SUBSET-SUM} \le_p \textsc{Partition}$
+\end{itemize}
+
+\textbf{General Strategy for NP-Completeness Proofs.}
+\begin{enumerate}
+    \item Show the language is in $NP$ (certificate, verifier, runtime).
+    \item Reduce from a known NP-complete problem, typically 3SAT.
+    \item Construct a polynomial-time function mapping instances. Prove correctness (see above)
+\end{enumerate}
+
+To show L is not regular, show: $\forall p \in \mathbb{N}, \exists \text{ strings } w \in L$ of length $|w| \geq P, \forall \text{ strings } x,y,z \: : \: w = xyz, |y| > 0, |xy| \leq p, \exists i \in \mathbb{N}, x y^i z \notin L$

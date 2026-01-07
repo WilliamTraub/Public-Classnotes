@@ -1,0 +1,27 @@
+\section{1/7, Defining Functions}
+mk-requests:(ListID)
+\\
+$\forall S, \forall r, \forall a, \exists R, \: \text{mk-requests}(S, r, a) = R$
+\\
+$\forall S, \forall r, \forall a, \forall R, \text{mk-requests}(S, r, a) = R \implies \Sigma_{(\text{fr, to, amt})} amt = a$
+\\
+$\forall S, \forall r, \forall a, a < 0 \implies \nexists R, \text{ mk-requests}(S, r, a) = R$
+\\
+Advantages of proofs:
+\begin{itemize}
+  \item Computable - we can turn these statements into tests and proofs
+  \item Independent - decoupled from the code itself. We don't need to worry about runtime in order to test.
+\end{itemize}
+Coding a property?
+\\
+Because we are universally quantifying, we would generally need to enumerate over the entire set of each $\forall$
+\\
+Write a testing harness to substitute for the enumeration. Use randomness to generate test data.
+
+\section{Course Plan}
+Modules:
+\begin{enumerate}
+  \item Programming and PBT
+  \item Engineering with Abstractions
+  \item Analyzing Programming Languages
+\end{enumerate}
