@@ -1,0 +1,38 @@
+\section{1/8 Functional Programming}
+What is functional programming?
+\\
+When we write software and it gets complicated, it helps to break it down into smaller pieces. With functional programming, we get 'glue' where you are composing functions with each other.
+\\
+Goal: get us to write a fizzbuzz function that takes in an int and gives a fizzbuzz string output
+\\
+\begin{lstlisting}
+  function fizzbuzz:
+    input n number
+    output string
+
+    if (n % 3) = (n % 5) = 0 return "fizzbuzz"
+    else if n % 3 = 0 return "fizz"
+    else if n % 5 = 0 return "buzz"
+    else return n as a string
+\end{lstlisting}
+\subsection{OCaml notes}
+\begin{itemize}
+  \item in the REPL (utop) terminate expressions with ;;
+  \item standard arithmetic, carrot is string concat
+  \item must use +. to add floats
+  \item use float of int to cast float to int
+  \item double quotes for string
+  \item not binds tighter than other
+  \item if false then 2 else 3 (ternerary must have same type)
+  \item comparison operators, single =
+  \item let x = 4 in x / 2
+  \item overwriting variables instead of mutating them
+  \item \begin{lstlisting}
+    let <var> = <expr> in <body> ;;
+    < store, let <var> = <expr>> -> <store[<var> ;;
+  \end{lstlisting}
+\end{itemize}
+
+
+
+
