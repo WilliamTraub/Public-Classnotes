@@ -1,0 +1,57 @@
+\section{1/12}
+\begin{lstlisting}
+  let x = 19 in let x = x < 10 in x ;;
+  (* goes to *)
+  
+  
+  let x = 3 in x + x ;; (* -> 6 *)
+  let x = 4 in let y = 5 in x * y ;; (* 20 *)
+  let x = 19 in (let x = x < 10 in x) ;;
+\end{lstlisting}
+
+\subsection{Functions}
+Functions are boring and everywhere.
+\begin{lstlisting}
+  (* anonymous function *)
+  let f = fun (x : int) -> x + 1 ;;
+  f : int -> int -> int
+\end{lstlisting}
+OCaml is right-associative so 
+\begin{lstlisting}
+  let f = fun (x : int) -> fun (y : int) -> x * y ;;
+  let f (x : int) (y : int) = x * y ;;
+\end{lstlisting}
+These functions are isomorphic and will result in about the same thing.
+\begin{lstlisting}
+  let f (g : int -> int) (y : int) = g y;;
+  let adder = f (fun (y : int) )
+\end{lstlisting}
+Lexical Scope
+\begin{lstlisting}
+  let y   = 1 in
+  let f x = x + y in
+  let y   = 2 in 
+  f 3 ;;
+\end{lstlisting}
+There is closure used where the function substitutes y into its body and just becomes f(x) = x + 1.
+
+\subsection{Specification}
+We have high-order functions that can take in other functions.
+\begin{lstlisting}
+  let max3 (i : int) (j : int) (k : int) = 
+    if i >= j
+    then if i >= k
+      then i
+      else k
+    else if l >= k
+      then j
+      else k
+\end{lstlisting}
+We want to specify the function in formal logic.
+\begin{multline*}
+  \forall i, j, k \in \mathbb{Z} \\
+    max3(i, j, k) \geq i \land \\
+     max3(i,j,k) \geq j \land \\
+     max3(i,j,k) \geq k \land \\
+     max3(i,j,k) \in \{i, j, k\}
+\end{multline*}
