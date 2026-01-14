@@ -1,0 +1,124 @@
+\section{1/14 Pattern Matching and Data}
+\subsection{Functions}
+\begin{lstlisting}
+  fun (x : int -> string) -> (string -> string) (z : int)
+
+\end{lstlisting}
+Functions are everything. You can think of let bindings as function application. 
+\begin{lstlisting}
+  let x = 19 in          (fun (x) ->
+  let y = x < 10           (fun (y) -> y
+  in y ;;                  ) (x < 10)
+                         ) 19
+\end{lstlisting}
+
+What is pattern matching?
+\begin{lstlisting}
+  let show (x : int) =
+    if x = 1 then "one" else
+    if x = 2 then "two" else
+    if x = 3 then "three" else
+    "> three";;
+
+  let show (x : int) =
+    match x with
+    | 1 -> "one"
+    | 2 -> "two"
+    | 3 -> "three"
+    | _ -> "> three";;
+\end{lstlisting}
+Because we have typing, we can more aggresively optimize. \url{https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/}
+\\
+In OCaml, we have pairs or tuples. Always use pattern matching to unfold or destruct.
+\begin{lstlisting}
+  let student_of_2800 (name_stu : string * bool) : bool =
+  match (name, is_student) with
+  | (_, false) -> false
+  | (_, true) -> true ;;
+\end{lstlisting}
+You can have a nested match but you must wrap with parenthesis.
+\begin{lstlisting}
+  let shift_x (pt : int * int) (delta : int) : int * int =
+    match pt with
+      | (x, y) -> (x + delta, y)
+      ;;
+\end{lstlisting}
+\begin{lstlisting}
+  let shift_x ((x, y) : int * int) (delta : int) : int * int =
+    (x + delta, y)
+    ;;
+\end{lstlisting}
+\begin{definition}
+  Sometimes we have basic types but sometimes we want to provide a light form of documentation. We can write a \textbf{type alias} to define our own. 
+\end{definition}
+\begin{lstlisting}
+  type point2d = int * int;;
+  let shift_x (point2d : int * int) (dx, dy : int * int) : point2d =
+    match (xy, dxdy) with | (x, y), (dx, dy) -> (x + dx, y + dy) ;;
+\end{lstlisting}
+\subsection{ADT's}
+\begin{definition}
+  And \textbf{Algebraic Data Type (ADT)} is a composite data type. This is similar to a union or Enum. An example of a sumtype.
+\end{definition}
+\begin{lstlisting}
+  type weekday =
+    | Monday
+    | Tuesday
+    | Wednesday
+    | Thursday
+    | Friday ;;
+  
+  type two_days = (weekday * weekday);;
+
+  let next_weekday (d : weekday) : weekday =
+    match d with
+    | Monday  -> Tuesday
+    | Tuesday -> Wednesday
+    | Wednesday -> Thursday
+    | Thursday -> Friday
+    | Friday -> Monday ;;
+
+  type my_bool =  | myTrue | myFalse ;;
+
+  type distance = 
+    | Inches of float
+    | Feet of float
+    | Yards of float ;;
+
+  let d1 = Inches 10. ;;
+  let d2 = Yards 12. ;;
+
+  let distance_to_inches (d : distance) : float =
+  match d with
+    | Inches x -> x
+    | Feet x -> x *. 12.
+    | Yards x -> x *. 36. ;;
+
+  distance_to_inches d2 ;; (* returns )
+\end{lstlisting}
+\newpage
+\begin{lstlisting}
+  type quantity = 
+    | Fraction of int * int
+    | Float of float
+    | Arbitrary of string ;;
+
+  let string_of_quantity (q : quantity) : string =
+    match q with 
+    | Fraction (n, d) -> string_of_int n ^ "/" ^ string_of_int d
+    | Float f -> string_of_float f
+    | Arbitrary s -> s ;;
+\end{lstlisting}
+Record type in OCaml
+\begin{lstlisting}
+  type offset
+    = { location : point2d ; delta distance * distance}
+  
+  let small_offset = {location = (3, 3) 
+                     ; delta = (Float 3., Fraction (1, 2))}
+  let _ =
+    match small_offset.delta with
+      | (_, Fraction (_, _)) -> print_endline "fractional"
+      | (_, Float _) -> print_endline "float"
+      | (_, Arbitrary _) -> print_endline "arbitrary" ;;
+\end{lstlisting}
