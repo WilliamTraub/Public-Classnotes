@@ -1,0 +1,58 @@
+\section{January 13}
+\subsection{Sorting Algorithms}
+Take $n$ elements and return them in ascending order.
+Selection Sort - Find the minimum, swap it 
+\begin{lstlisting}
+  SelectionSort(A[1:n]):
+    for j = 1,...,n-1:
+      min_pos = j
+      for k = j+1,...,n:
+        if (A[k] < A[min_pos]):
+          min_pos = k
+      swap A[min_pos] and A[j]
+\end{lstlisting}
+Analysis:
+\begin{itemize}
+  \item How to prove correctness?
+  \item Analysis of run time
+\end{itemize}
+At any index $j$, the first $j - 1$ elements are sorted and every element with index $i \geq j$ is larger than element j - 1.
+\begin{itemize}
+  \item A[1: j - 1] contains the j - 1 smallest elements of A in order.
+  \item A[j:n] contains the remaining elements of A.
+\end{itemize}
+\begin{proof}
+  Base case j=1: 
+  This is trivially true as A[1:0] is empty and A[1:n] is the entire array.
+  \\
+  Suppose the hypothesis is true.
+  \\
+  Induction step j+1: Between the start of iteration j and j+1, we have found a particular element and swapped
+\end{proof}
+\subsection{Describing Algorithms}
+\begin{itemize}
+  \item Pseudocode: an easily readable, precise, unambiguous description of an algorithm
+  \begin{itemize}
+    \item About clarity not format
+    \item More like comments than code
+    \item Often avoids the idiosycratic details of programming languages.
+  \end{itemize}
+\end{itemize}
+
+\newpage
+\subsection{Divide and conquer}
+\begin{itemize}
+  \item Split your problem into smaller subproblems
+  \item Solve the subproblems recursively
+  \item Combine the solutions
+\end{itemize}
+Key tools
+\begin{itemize}
+  \item Recursion
+  \item proof by induction 
+  \item runtime analysis
+  \item $\Theta$ notation
+\end{itemize}
+Mergesort:
+\\
+F

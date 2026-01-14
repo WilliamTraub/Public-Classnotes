@@ -1,0 +1,58 @@
+\section{January 9, Introduction}
+\subsection{What is CS3000: Algorithms and Data}
+The study of how to solve computational problems.
+\begin{itemize}
+  \item How to design \textbf{efficient algorithms} - Resources: time, space, parallelism
+\end{itemize}
+Why do we care about this?
+\begin{itemize}
+  \item Improve your problem solving
+  \begin{itemize}
+    \item How to attack new problems
+    \item Which algorithmic tools apply
+    \item How to compare different solutions
+    \item How to know if a solution is the best possible
+  \end{itemize}
+  \item etc
+\end{itemize}
+
+\subsection{Egg Drop Contest}
+\begin{itemize}
+  \item You want to test your egg parachute (one egg, ladder with n steps)
+  \item You can try dropping your egg odd different steps to see if it breaks
+\end{itemize}
+Linear scan
+\begin{lstlisting}
+  LinearScan(1,n):
+  H = 0
+  While H <= n and egg intact
+    H = H + 1
+    Drop egg from step H
+  
+  Return H - 1
+\end{lstlisting}
+Worst case number of steps: n
+\\
+Now with two eggs: start in the middle and if it breaks 
+\begin{lstlisting}
+  BalancedScan(1,n):
+    H = 0
+    While H <= n and first egg intact
+      H = H + n^1/2
+      Drop egg from step H
+    If first egg intact:
+      Return n
+    Else:
+      LinearScan(H - n^1/2 + 1, H - 1)
+\end{lstlisting}
+Worst case time $2 \sqrt{n}$
+\\
+Suppose you have some $t \in \mathbb{N}$ eggs.
+\\
+With t eggs you can get a worst case of $tn^{1/t}$
+\\
+With $\infty$ eggs, use binary search for worst case $log_2(n)$
+
+\subsection{The Chocolate Coin Problem}
+You have a sack of n coins, one is chocolate and lighter.
+Use a scale to see which of the two is heavier

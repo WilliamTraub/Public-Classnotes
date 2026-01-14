@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+
+\usepackage[normalem]{ulem}
+\newcommand{\mydash}{\hbox{\sout{ }}} 
+\renewcommand{\arraystretch}{1.25}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{marvosym}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\title{Algorithms and Data Notes}
+\author{William Traub}
+\date{}
+
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}{Example}
+\newtheorem{observation}{Observation}
+\newtheorem{question}{Question}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{lecture01.tex}
+\newpage
+\input{lecture02.tex}
+
+\end{document}
