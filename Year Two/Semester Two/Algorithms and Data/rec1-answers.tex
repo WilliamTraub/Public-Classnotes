@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+
+\usepackage[normalem]{ulem}
+\newcommand{\mydash}{\hbox{\sout{ }}} 
+\renewcommand{\arraystretch}{1.25}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{marvosym}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\title{Algorithms and Data Notes}
+\author{William Traub}
+\date{}
+
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}{Example}
+\newtheorem{observation}{Observation}
+\newtheorem{question}{Question}
+\newtheorem{exercise}{Exercise}
+
+
+\begin{document}
+\begin{exercise}
+Mystery Function
+\begin{lstlisting}
+  Function F(a, n):
+    If n = 0 : Return (1, 0)
+    Else:
+      b <- 0
+      For i from 1 to n:
+        b <- b + a
+      (u, v) <- F(a, n - 1)
+      Return (u * b, v + n * b)
+\end{lstlisting}
+\begin{itemize}
+  \item What are the results of
+  \begin{itemize}
+    \item F(a, 2) : $\langle 2a^2, 5a \rangle$
+    \item F(a, 3)
+    \item F(a, 4)
+  \end{itemize}
+  \item What does the code do?
+  \begin{proof}
+    Hypothesis: F(a, n) = $(n!n^n, \frac{n(n+1)(2n+1)a}{6})$
+    Base Case: Substituting n=1, F(a, 1) = $(1!1^1, \frac{1(1+1)(2(1)+1)a}{6}) \to (1, 0)$
+    Induction Step:
+    \\
+    If statement proven by base case.
+    \\
+    $b = n \cdot a$
+    \\
+    (u,v) = F(a, n - 1)
+    \\
+    $u = (n-1)!a^{n-1}$
+    \\
+    $v = \frac{(n-1)(n)(2(n-1) + 1)a}{6}$
+    \\
+    Return statement (x, y):
+    \begin{itemize}
+      \item 
+    \end{itemize}
+  \end{proof}
+  
+\end{itemize}
+\end{exercise}
+\begin{exercise}
+  Tiling with tetrominoes.
+  \\
+  \begin{proof}
+    \begin{corollary}
+      A tromino has four legal rotational orientations, I will denote these as $T_{0, 1, 2, 3}$ to 
+    \end{corollary}
+    Base Case n=1: For a $2\times2$ grid, the 
+  \end{proof}
+\end{exercise}
+
+\end{document}

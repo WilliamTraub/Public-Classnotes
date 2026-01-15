@@ -1,0 +1,117 @@
+\section{1/15 Recap and Structural Recursion}
+\begin{lstlisting}
+type int_result = 
+  | IntOk of int
+  | IntError of string ;;
+\end{lstlisting}
+\begin{lstlisting}
+type person = { name : string ; age : int; registered : bool} ;;
+let alice = { name = "alice" ; age = 24 ; registered = true } ;;
+
+let string_of_person (p : person) : string =
+  p.name ^ " is " string_of_int p.age ;;
+  
+let other_string_of_person { name ; age = their_age ; _ } : string =
+  name ^ " is " string_of_int their_age ;;
+\end{lstlisting}
+The million dollar mistake: nullity. Can be solved by options.
+\begin{lstlisting}
+type int_option =
+  | IntOpt of int
+  | IntOptEmpty
+\end{lstlisting}
+
+\subsection{Recursive types}
+Lists in OCaml
+\begin{lstlisting}
+  [1 ; 2 ; 3]
+\end{lstlisting}
+Statically typed, can only have single type.
+
+\begin{lstlisting}
+  type int_list = 
+    | Empty
+    | Cons of int * int_list
+  
+  let intlist1 = Cons (2, (Cons (1, Empty)))
+
+  let rec int_with_list_sum (xs : int_list) : int =
+    match xs with
+    | Empty -> 0
+    | Cons (x, xs') -> x + int_list_sum xs'
+
+  let rec int_list_length (xs : int_list) : int =
+    | Empty -> 0
+    | Cons (_x, xs) -> 1 + int_list_length xs
+  
+  let rec int_list_add1 (xs : int_list) : int_list =
+    | Empty -> Empty
+    | Cons (x, xs) -> Cons (x * 2, int_list_add1 xs)
+  
+  let rec int_list_mul2 (xs : int list) : int list =
+    | [] -> []
+    | x::xs -> (x * 2) :: (int_list_mul2 xs)
+\end{lstlisting}
+We can create a high-order function map for this
+\begin{lstlisting}
+  let rec map (f : int -> int) (xs : int list) : int list =
+    match xs with 
+    | [] -> []
+    | x::xs -> (f x) :: (map f xs)
+    
+  let add1 = map (fun (x : int) -> x + 1)
+  let mul2 = map (fun (x : int) -> x * 2)
+\end{lstlisting}
+We can reduce or fold to find the sum of a list. We are taking a data structure and an accumulator and apply a binary function to the acc and each element of the structure.
+\begin{lstlisting}
+  let rec fold ( f : int -> int -> int) (acc : int) (xs : int list) : int_list =
+    match xs with
+    | [] -> acc
+    | (x::xs') ->
+      let acc' = f acc x in
+      fold f acc' xs'
+  
+  let sum = fold (fun (acc : int) (x : int) -> acc + x) 0
+  let product = fold (fun (acc : int) (x : int) -> acc * x) 1
+
+  let rec append (xs : int list) (ys : int list) : int list =
+    match xs with
+    | [] -> ys
+    | (x :: xs') -> x :: append xs' ys
+
+  let rec reverse (xs : int list): int list =
+    match xs with
+    | [] -> []
+    | (x :: xs') -> append (reverse xs') [x]
+\end{lstlisting}
+Functions sum and reverse are commutative. $\forall x \in$ int list, sum(reverse(xs)) = sum(xs)
+\\
+How to test a list function.
+\\
+Generating a random list: start with deciding the length.
+\begin{lstlisting}
+  let rec mk_list_of_length (len : int) : int list =
+    if len <= 0 then [] else
+      let hd = Random_int 500 in
+      let tl = mk_list_of_length (len - 1) in
+      hd :: tl
+
+  let list_gen () : int list =
+    let len = Random.int 300 in
+    mk_list_of_length len
+\end{lstlisting}
+We need to serialize a counterexample to create a tester
+\begin{lstlisting}
+  let prop_sum_rev (sum L int list -> int) (rev : int list -> int list) : int list option =
+  let xs = list_gen () in
+  if sum (reverse xs) = sum xs then None else 
+    Some xs
+
+  let rec do_tests (sum : int list -> int) (rev : int list -> int list) (n : int) =
+    if  n <= 0 then
+      print_endline "no issues"
+    else
+      match (prop_sum_rev sum rev) with
+      | None -> do_tests sum rev (n - 1)
+      | Some s -> print_endline("found a bug: " ^ stringify s)
+\end{lstlisting}
