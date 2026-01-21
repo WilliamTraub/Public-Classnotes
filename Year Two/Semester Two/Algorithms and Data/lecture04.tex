@@ -1,0 +1,45 @@
+\section{January 20, Divide and Conquer cont.}
+Quiz 1 1/21 - Basic iterative and recursive algorithms (study first 2 lectures). Practice quiz on canvas.
+\\
+Homework 1 due on friday.
+\subsection{Asymptotic Analysis cont.}
+\begin{question}
+  Rank the following functions in order of growth:
+  \begin{enumerate}
+    \item $n \log_2 n$
+    \item $n^2$
+    \item $100n$
+    \item $3^{\log_2 n}$
+  \end{enumerate}
+  Starting with the first 2. 
+  $\lim_{n \to \infty}\frac{\log_2n}{n} = \lim_{n \to \infty}\frac{\ln n}{\ln 2 \cdot n}$.
+  \\
+  Apply L'Hopital
+  \\
+  $\lim_{n \to \infty}\frac{1/n}{\ln 2} = \lim_{n \to \infty}\frac{1}{n \cdot \ln 2} = 0. \\
+  \therefore \log_2 n = O(n)$
+  \\
+  $3^{\log_2 n} = (2^{\log_2 3})^{\log_2 n} = (2^{\log_2 n})^{\log_2 3} = n ^{\log_2 3} = n^{1.9}$
+  \\
+  \textbf{Answer:}
+  \begin{enumerate}
+    \item $100n$
+    \item $n \log_2 n$
+    \item $3^{\log_2 n}$
+    \item $n^2$
+  \end{enumerate}
+\end{question}
+h
+\\
+Big Oh Rules:
+\begin{itemize}
+  \item Constant factors can be ignored. $\forall C > 0, Cn = \mathcal{O}(n)$
+  \item Lower order terms can be dropped. $n^2 + n^{3/2} + n = \mathcal{O}(n^2)$
+  \item Smaller exponents are Big-Oh of larger exponents. $\forall a < b, n^a = \mathcal{O}(n^b)$
+  \item Any logarithm is Big-Oh of any polynomial. $\forall a, b > 0, (log_2 n)^a = \mathcal{O}(n^b)$
+  \item Any polynomial is Big-Oh of any exponential. $\forall a > 0, b > 1, n^a = \mathcal{O}(b^n)$
+  \item Bases of logarithms can be ignored. $\forall a, b > 1, \log_a (n) = \mathcal{O}(\log_b (n))$
+\end{itemize}
+\begin{itemize}
+  \item Big-Omega
+\end{itemize}

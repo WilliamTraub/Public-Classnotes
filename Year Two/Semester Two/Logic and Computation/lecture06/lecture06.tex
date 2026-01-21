@@ -1,0 +1,36 @@
+\section{1/21 - Specification cont.}
+We might use a comment to annotate a function;
+\begin{lstlisting}
+  (* return the larger of the two numbers *)
+  let max (i : int) (j : int) = ...
+\end{lstlisting}
+This can be written as $S = \{P \vert P $ implements "return the larger of two numbers" $\}$
+\\
+This is somewhat ambiguous, the set is infinite.
+\begin{lstlisting}
+  (* sorts the input list *)
+  let rec sort (xs : int list) = ...
+
+  type row = {
+    name : string;
+    gid : string; (* global id *)
+    lid : string (* local id *)
+  }
+
+  let rec sort_rows (xs : row list) : row list = ...
+\end{lstlisting}
+It's unclear how this needs to be sorted.
+\\
+A data type is its own specification. $S = \{ P \vert P \text{ has int list} \to \text{int list} \}$. This set is also infinite.
+\\
+We want something more powerfull then the second while still expressing the meaning of the first.
+\\
+
+\begin{enumerate}
+  \item $\forall xs, ys, \: \text{sort xs} = ys \implies \forall i, j, 0 \leq i < j < \text{length }ys \implies ys[i] \leq ys[j]$
+  \item $\forall x, \: x \in ys \land x \in xs$ 
+  \\
+  or $\forall xs, ys, \text{sort xs = ys} \implies \forall i, |xs\{i\}| = |ys\{i\}|$
+\end{enumerate}
+We can restate this as $S = \{ P \vert \forall i, R(i, P(i))\}$.
+
