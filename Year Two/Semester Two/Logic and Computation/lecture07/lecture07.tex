@@ -1,0 +1,38 @@
+\section{1/22 - Formalization, Coding and Bug Hunting}
+Plan
+\begin{itemize}
+  \item Formalize our sort specification
+  \item Discuss computability
+  \item Implement a the specification and find a bug
+\end{itemize}
+This is an Andmap in racket.
+\\
+CODE3
+\\
+We now have our implementation of our specification and can write a full test function.
+\\
+CODE4
+\\
+We take in our sort function as an input as we are validating if a certain function works.
+\\
+Because we are talking about our computable test function, we should also specify that. $S = \{ P \vert \forall xs, \text{ prop-sort-correct}(xs, P)\}$ where prop-sort-correct is int list $\to$ bool.
+\\
+This is an undecidable problem so we must modify it. $S = \{ (xs, P) \vert \text{ prop-sort-correct}(xs, P)\}$
+\\
+We were told to draw a pretty picture so here is mine. \includegraphics[totalheight=3cm]{/Users/willtraub/Desktop/notes-work/University-Notes/Year Two/Semester Two/Logic and Computation/lecture07/IMG_6513.jpg}
+\\
+PBT recipie:
+\begin{enumerate}
+  \item Write down our logical spec as a program
+  \item Use randomness to perform (directed) sampling of the input values
+  \item If no counterexample: increase confidence and reexamine the generator and proposition 
+  \item If the is a counterexample, the prop is invalid
+\end{enumerate}
+\textbf{CODE5}
+List init is like a racket buildlist
+\\
+We are now making our testing harness to make forall use random sampling
+\\
+\textbf{CODE6}
+\\
+The final step in this bug hunt is to write a bad implementation of sort.
