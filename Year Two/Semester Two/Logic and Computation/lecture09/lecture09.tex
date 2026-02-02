@@ -1,0 +1,61 @@
+\section{Type Inference, Modules}
+We have a function and we want to identify it's type signature.
+\begin{lstlisting}
+fun a -> (snd a, fst a);;
+  snd: X * Y -> Y
+  fst: X * Y -> X
+\end{lstlisting}
+First we must look at the top-level expression. We can express this as 
+
+$X? * Y? \to C? * D?$
+\\
+Where
+$a: X? * Y?
+\\
+snd(a): Y?
+\\
+fst(a): X?$
+We can substitute the functions in and fill in the polymorphic types
+\\
+$f: 'a * 'b \to 'b * 'a$.
+\\
+There is a website to practice polymorphic type inference but I didn't get the url.
+\\
+We have the sample code
+\begin{lstlisting}
+  type 'a queue = 'a list
+  let size : 'a queue -> int = failwith "..."
+
+  type 'a q_ops = {
+    push : 'a queue -> 'a -> 'a queue;
+    peek : 'a queue -> 'a option;
+  }
+\end{lstlisting}
+This is a queue data structure which allows adding an element to the end and looking at the front. This is an example of a module?
+\\
+In ocaml, files are modules. These are similar to a Java class with static methods.
+\begin{lstlisting}
+  let x : int Queue.t = create () ;;
+  Queue.add 1234 x;;
+  Queue.take_opt x;; (* int option = Some 1234 *)
+\end{lstlisting}
+Now to create a set, an unordered list of elements.
+\begin{lstlisting}
+  type 'a set = 'a list
+  let empty : 'a set = []
+
+  let rec mem (x : 'a) (s : 'a set) : bool  
+    = match s with
+    | [] -> false
+    | x' :: s' -> if x' = x then true else mem x s'
+
+  let rec remove (x : 'a) (s : 'a set) : 'a set
+    = match s with
+    | [] -> []
+    | x' :: s' -> if x' = x the s' else x' :: remove x s'
+
+  let add (el : 'a) (s : 'a set) : 'a set = el :: s
+\end{lstlisting}
+We care about module and interface design in order to ensure usability. When storing a set as a list, we allow the user to call List. commands on it.
+\\
+In order to prevent this we can define an interface file.
