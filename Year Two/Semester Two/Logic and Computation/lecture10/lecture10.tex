@@ -1,0 +1,75 @@
+\section{2/4}
+$f: 'a . 'a \to 'a$ is a universal quantifier $\forall$.
+\\
+A module is equivalent to the existensial quantifier $\exists$. We are stating that there exists an instance of a type that follows a proposition, in this case the proposition is our interface.
+\\
+\\
+When creating a module interface, you can comment out a function to make a private method.
+
+We can create module types in files:
+\begin{lstlisting}
+  module type MyIntSetSig = sig
+    type t
+    val empty : t
+    val mem : int -> t -> bool
+    val add : int -> t -> t
+    val remove : int -> t -> t
+\end{lstlisting}
+We use $t$ for our type in order to unify the output type for all of our methods. 
+\begin{lstlisting}
+  module type MyIntSet : MyIntSetSig = struct
+    type t = int list
+    let empty : t = []
+    let mem : int -> t -> bool = ...
+    val add : int -> t -> t = ...
+    val remove : int -> t -> t = ...
+\end{lstlisting}
+This struct signature defines a structed module.
+\\
+We can also open up the scope of the module using a "scoped open". We can pass in a statement (such as a function into the instance of the module).
+\begin{lstlisting}
+  let ex1 = MyIntSet.(add 1 (add 2 ex0))
+\end{lstlisting}
+We can design a recursive random generator for random sets.
+\begin{lstlisting}
+  let rec build_set_acc (n : int) (acc : MyIntSet.t) : MyIntSet.t
+    = if n <= 0
+      then acc
+      else (build_set_acc (n - 1) (MyIntSet.add (Random.int 10) acc))
+
+  let build_set (n : int) = build_set_acc n MyIntSet.empty
+\end{lstlisting}
+Even though this module holds an int list, we cannot call int functions on it because it is abstract.
+\\
+Some say that interface design is the most important part of programming so we need to make meaningful choices in their creation. 
+\\
+If we supply a large collection of helper functions in an interface the type somewhat loses semantic meaning. Specifiying very few functions makes the interface simpler and easier to read, but inflexible.
+
+\begin{lstlisting}
+  module type StringSetSig = sig
+    type t
+    val empty : t
+    val mem : string -> t -> bool
+    val add : string -> t -> t
+    val remove : string -> t -> t
+  end
+
+  module HashSet : StringSetSig = struct
+    type t = string list
+    let empty = []
+    let add x xs = Digest.string x :: xs
+    let mem x xs = List.mem (Digest.string x) xs
+    let remove x xs = List.filter ((<>) (Digest.string x)) xs
+  end
+\end{lstlisting}
+We can use these abstract types to reason about invariance. Our interface can make specifications such as a bijection between two types.
+\begin{lstlisting}
+  type bo = unit option
+\end{lstlisting}
+This specifies an isomorphism between the booleans and unit option.
+\begin{lstlisting}
+  module type BSig = sig
+    type t
+
+  ende
+\end{lstlisting}

@@ -18,7 +18,7 @@ let rec ndups (e : int) (xs : int list) : int
   | [] -> 0
   | x :: xs' -> (if x = e then 1 else 0) + (ndups e xs')
 let equal_element_count (xs : int list) (ys : int list) : bool 
-  = all xs (fun e -> ndups e xs = ndups e ys) 
+  = all xs (fun e -> ndups e xs = ndups e ys)
   && all ys (fun e -> ndups e xs = ndups e ys)
 
 (* Code 4*)
