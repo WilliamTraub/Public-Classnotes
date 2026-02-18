@@ -1,0 +1,111 @@
+\section{Functors and Mutability}
+\subsection{Functors, cont.}
+\begin{lstlisting}
+module type SetSig = SetSig
+  type elem
+  type t
+  val empty : t
+  val add : elem -> t -> t
+  val mem : elem -> t -> bool
+end
+\end{lstlisting}
+This is a functor that allows an abstract set type. We can implement it using this struct
+\begin{lstlisting}
+module ListSet (* : SetSig *) = struct
+  type elem = int 
+  type t = elem list
+  let empty = []
+  let add x xs = x :: xs
+  let rec mem x xs =
+    match xs with
+    | [] -> false
+    | y :: ys -> if x = y then true else mem x ys
+end
+\end{lstlisting}
+The simple equality function is baked into OCaml, but equality is definitely not nontrivial especially from the perspective of type theory.
+
+We can instead parameterize (as shown earlier) with an equality function.
+\begin{lstlisting}
+module type EqType = sig
+  type t
+  val equals L t -> t -> bool
+end
+
+module ListSet (T : EqType) : (SetSig with type elem = T.t) = struct
+  type elem = T.t
+  type t = elem list
+  let empty = []
+  let add x xs = x :: xs
+  let rec mem x xs =
+    match xs with
+    | [] -> false
+    | y :: ys -> if T.equals x y then true else mem x ys
+\end{lstlisting}
+Now to create an implementation of EqType to determine string equality.
+\begin{lstlisting}
+module StringEq : EqType = struct
+  type t = string
+  let equals s1 s2 = String.lowercase_ascii s1 = String.lowercase_ascii s2
+end
+
+module StringSet = ListSet(StringEq)
+\end{lstlisting}
+This is somewhat restrictive as we need to provide a new EqType every time we have an object. If we wanted to create a StringListEq, we can use functors in order to reuse our StringEq program.
+\begin{lstlisting}
+module ListEq (T : EqType) (* : EqType *) = struct
+  type t = T.t list
+  let rec equals xs ys =
+    match xs, ys with 
+    | [] , [] -> true
+    | x :: xs' , y :: ys' -> T.equals x y && equals xs' ys'
+    | _ , _ -> false
+end
+
+module StringListSet = ListSet(ListEq(StringEq))
+\end{lstlisting}
+In order to link the three types, we must add some extra type annotations.
+\begin{lstlisting}
+  module ListSet (T : EqType) : (SetSig with type elem = T.t) = struct ...
+  module StringEq : (EqType with type t = string) = struct ...
+  module ListEq (T : EqType) : (EqType with type t = T.t list) = struct ...
+\end{lstlisting}
+
+\subsection{Mutability}
+We have this code
+\begin{lstlisting}
+let add_one x = x + 1
+
+let f () =
+  let x = 1 in
+  let y = add_one x in
+  let x = 7 in
+  print_endline ("Y : " ^ string_of_int y)
+
+let _ = f ()
+
+\end{lstlisting}
+This will output 2 as it ignores the reassignment x = 7. If we want to instead recompute x we can use reference types:
+\begin{lstlisting}
+let add_one (x : int ref) = !x + 1
+let f () =
+  let x = ref 1 in
+  let y = fun _ -> add_one x in
+  x := 7;
+  print_endline ("Y : " ^ string_of_int (y ()))
+
+let _ = f ()
+\end{lstlisting}
+The new functions have signatures ref $: a' \to a'$ ref, ! $: 'a \: ref \to 'a$, and $(:=) : 'a \: ref \to 'a \to $ unit.
+
+Included are a few excercises to learn how references work.
+\begin{lstlisting}
+let test () =
+  let f x =
+    let y = ref 10 in
+    y := !y + 1;
+    x + !y
+  in
+  let y = ref 0 in
+  f 2
+\end{lstlisting}
+This ignores the final let y and evaluates to 13. 

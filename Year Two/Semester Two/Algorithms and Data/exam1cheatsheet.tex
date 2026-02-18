@@ -1,0 +1,501 @@
+\documentclass[7pt,landscape]{article}
+\usepackage[margin=0.2in]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\setlength{\parindent}{0pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\parskip}{0.5pt}
+\pagestyle{empty}
+
+\newcommand{\sect}[1]{\vspace{1mm}\textbf{\underline{#1}}\vspace{0.5mm}}
+
+\begin{document}
+\begin{multicols}{3}
+\setlength{\columnsep}{0.4cm}
+\small
+
+\sect{ASYMPTOTIC NOTATION}
+
+$f(n) = O(g(n))$ if $\exists c,n_0: 0 \leq f(n) \leq c \cdot g(n)$ for $n \geq n_0$
+
+$f(n) = \Omega(g(n))$ if $\exists c,n_0: 0 \leq c \cdot g(n) \leq f(n)$ for $n \geq n_0$
+
+$f(n) = \Theta(g(n))$ if $f(n) = O(g(n))$ and $f(n) = \Omega(g(n))$
+
+$f(n) = o(g(n))$ if $\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0$
+
+$f(n) = \omega(g(n))$ if $\lim_{n\to\infty} \frac{f(n)}{g(n)} = \infty$
+
+\textbf{Common Growth Rates:}
+$1 < \log\log n < \log n < n^{0.5} < n < n\log n < n^2 < n^3 < 2^n < n! < n^n$
+
+\textbf{Limit Comparison:}
+$\lim_{n\to\infty} \frac{f(n)}{g(n)} = \begin{cases} 0 & f=o(g) \\ c>0 & f=\Theta(g) \\ \infty & f=\omega(g) \end{cases}$
+
+\textbf{Log Rules:} $\log(ab) = \log a + \log b$, $\log(a^b) = b\log a$, $\log_a b = \frac{\log b}{\log a}$
+
+\textbf{Sum Rules:} $\sum_{i=1}^n i = \frac{n(n+1)}{2} = \Theta(n^2)$
+
+$\sum_{i=0}^n r^i = \frac{r^{n+1}-1}{r-1}$ (geometric series)
+
+\sect{INDUCTION PROOFS}
+
+\textbf{Structure:}
+1. \textbf{Base case:} Prove $P(n_0)$ true
+2. \textbf{IH:} Assume $P(k)$ true for some $k \geq n_0$
+3. \textbf{Inductive step:} Prove $P(k+1)$ using IH
+
+\textbf{Strong Induction:} Assume $P(n_0), P(n_0+1), \ldots, P(k)$ all true
+
+\sect{RECURRENCES \& MASTER THEOREM}
+
+\textbf{Master Theorem:} $T(n) = aT(n/b) + f(n)$, $n_c = \log_b a$
+
+\textbf{Case 1:} $f(n) = O(n^c)$ where $c < n_c$ $\Rightarrow T(n) = \Theta(n^{n_c})$
+
+\textbf{Case 2:} $f(n) = \Theta(n^{n_c} \log^k n)$ $\Rightarrow T(n) = \Theta(n^{n_c} \log^{k+1} n)$
+
+\textbf{Case 3:} $f(n) = \Omega(n^c)$ where $c > n_c$ AND $af(n/b) \leq kf(n)$ for $k<1$ $\Rightarrow T(n) = \Theta(f(n))$
+
+\textbf{Common Recurrences:}
+- $T(n) = T(n-1) + c \Rightarrow \Theta(n)$
+- $T(n) = T(n-1) + n \Rightarrow \Theta(n^2)$
+- $T(n) = 2T(n/2) + n \Rightarrow \Theta(n\log n)$ (merge sort)
+- $T(n) = 2T(n/2) + 1 \Rightarrow \Theta(n)$
+- $T(n) = T(n/2) + 1 \Rightarrow \Theta(\log n)$ (binary search)
+
+\textbf{Recursion Tree Method:}
+1. Draw levels with work at each
+2. Sum work per level $\times$ \# levels
+3. Total = $\sum$ (work per level)
+
+\sect{DIVIDE \& CONQUER}
+
+\textbf{Template:}
+1. \textbf{Divide:} Split into subproblems
+2. \textbf{Conquer:} Solve recursively
+3. \textbf{Combine:} Merge solutions
+
+\textbf{Binary Search:} $T(n) = T(n/2) + O(1) = O(\log n)$
+
+\textbf{Merge Sort:} $T(n) = 2T(n/2) + O(n) = O(n\log n)$
+
+\textbf{Matrix Mult (naive):} $T(n) = 8T(n/2) + O(n^2) = O(n^3)$
+
+\textbf{Strassen:} $T(n) = 7T(n/2) + O(n^2) = O(n^{2.81})$
+
+\sect{DYNAMIC PROGRAMMING}
+
+\textbf{Steps:}
+1. Define subproblem structure
+2. Write recurrence relation
+3. Identify base cases
+4. Determine computation order
+5. Reconstruct solution (if needed)
+
+\textbf{Memoization:} Top-down, cache results
+
+\textbf{Tabulation:} Bottom-up, fill table
+
+\textbf{Time Analysis:} \# subproblems $\times$ time per subproblem
+
+\textbf{Fibonacci:} $F(n) = F(n-1) + F(n-2)$
+- Naive recursion: $O(2^n)$
+- DP: $O(n)$ time, $O(n)$ space
+
+\textbf{Longest Common Subsequence (LCS):}
+
+$L[i][j] = \begin{cases} 
+0 & \text{if } i=0 \text{ or } j=0 \\ 
+L[i-1][j-1]+1 & \text{if } x_i = y_j \\ 
+\max(L[i-1][j], & \\
+\quad L[i][j-1]) & \text{if } x_i \neq y_j 
+\end{cases}$
+
+Time: $O(mn)$, Space: $O(mn)$
+
+\textbf{0-1 Knapsack:}
+
+$K[i][w] = \begin{cases} 
+0 & \text{if } i=0 \text{ or } w=0 \\ 
+K[i-1][w] & \text{if } w_i > w \\ 
+\max(K[i-1][w], & \\
+\quad v_i + K[i-1][w-w_i]) & \text{if } w_i \leq w 
+\end{cases}$
+
+Time: $O(nW)$, Space: $O(nW)$
+
+\textbf{Edit Distance:}
+
+$E[i][j] = \begin{cases} 
+i & \text{if } j=0 \\ 
+j & \text{if } i=0 \\ 
+E[i-1][j-1] & \text{if } s_i = t_j \\ 
+1 + \min(E[i-1][j], & \\
+\quad E[i][j-1], & \\
+\quad E[i-1][j-1]) & \text{else} 
+\end{cases}$
+
+Operations: insert, delete, substitute
+
+\textbf{Matrix Chain Multiplication:}
+
+$m[i][j] = \begin{cases} 
+0 & \text{if } i=j \\ 
+\min_{i \leq k < j}(m[i][k] + & \\
+\quad m[k+1][j] + & \\
+\quad p_{i-1}p_kp_j) & \text{if } i<j 
+\end{cases}$
+
+Time: $O(n^3)$
+
+\textbf{Rod Cutting:} $r[n] = \max_{1\leq i \leq n}(p_i + r[n-i])$
+
+\textbf{Common DP Patterns:}
+- Sequence alignment: 2D table
+- Subset sum: 1D/2D array
+- Path counting: grid DP
+- Interval DP: diagonal filling
+
+\sect{PSEUDOCODE TIPS}
+
+- Use clear variable names
+- Comment base cases
+- Show loop/recursion structure
+- Indicate table dimensions
+- Return statement clear
+
+\textbf{Example DP Template:}
+\begin{verbatim}
+function DP(input):
+  create table[size]
+  initialize base cases
+  for each subproblem:
+    compute using recurrence
+  return table[final]
+\end{verbatim}
+
+\sect{ALGORITHM ANALYSIS}
+
+\textbf{Loop Analysis:}
+- Single loop $1$ to $n$: $O(n)$
+- Nested loops $1$ to $n$: $O(n^2)$
+- Loop dividing by 2: $O(\log n)$
+
+\textbf{Recursive Analysis:}
+1. Write recurrence
+2. Solve using Master Theorem or substitution
+3. Verify base case
+
+\textbf{Space Complexity:}
+- Input size + auxiliary space
+- DP tables usually $O(n)$ or $O(n^2)$
+- Can optimize some 2D $\to$ 1D
+
+\sect{KEY ALGORITHMS}
+
+\textbf{Binary Search:}
+\begin{verbatim}
+low=0, high=n-1
+while low <= high:
+  mid = (low+high)/2
+  if arr[mid] == x: return mid
+  elif arr[mid] < x: low=mid+1
+  else: high=mid-1
+\end{verbatim}
+
+\textbf{Merge Sort:}
+\begin{verbatim}
+MergeSort(A, p, r):
+  if p < r:
+    q = (p+r)/2
+    MergeSort(A, p, q)
+    MergeSort(A, q+1, r)
+    Merge(A, p, q, r)
+\end{verbatim}
+
+\vspace{0.3cm}
+
+\sect{replace a with practice exam stuff}
+
+\begin{itemize}[leftmargin=*, nosep]
+\item \textbf{Asymptotic:} Use $\lim \frac{f}{g}$ or find $c,n_0$
+\item \textbf{Logs:} $\log(x^a) = a\log x$, $\sqrt{2}^x = 2^{x/2}$
+\item \textbf{Sum logs:} $\sum_{i=1}^x \log(x^{ai}) = \Theta(x^2\log x)$
+\item \textbf{Compare:} $\lim=0 \Rightarrow o$, $\lim=c>0 \Rightarrow \Theta$, $\lim=\infty \Rightarrow \omega$
+\item \textbf{Multi-base:} $T(n)=2T(n/4)+T(n/3)+f(n)$
+\item Max crit exp: $\max(\log_4 2, \log_3 1) = 0.5$
+\item \textbf{Count ops:} $T(n)$ = calls $\times T(\text{sub})$ + work
+\item \textbf{Local apex:} $A[i] > A[i-1]$ and $A[i] > A[i+1]$
+\item \textbf{Apex algo:} Check mid, move to larger neighbor
+\item One side must have apex: $O(\log n)$
+\item \textbf{Road trip:} $\text{OPT}[i]=\min_{i-k\leq j<i}(\text{OPT}[j]+d[i])$
+\item State: min cost to location $i$, time: $O(nk)$
+\item \textbf{Treasure:} $\text{OPT}[w]=\min_i(1+\text{OPT}[w-w[i]])$
+\item State: min pieces for weight $w$, time: $O(Wn)$
+\item \textbf{Reconstruct:} Store parent/choice, trace back
+\item \textbf{Base cases:} $\text{OPT}[0]=0$ or base value
+\item \textbf{DP order:} Fill table so dependencies computed first
+\item \textbf{Pseudocode:} Algorithm name, init table, loops, return
+\item \textbf{Step-by-step process for writing recurrences from pseudocode}:
+\item Count recursive calls
+\item Determine subproblem sizes
+\item Count work done per call
+\item Combine into the recurrence formula
+\item Remember the base case
+\end{itemize}
+
+\vfill\null
+\columnbreak
+\newpage
+
+\begin{center}
+\textbf{\large SIDE 2: DETAILED EXAMPLES \& TECHNIQUES}
+\end{center}
+
+\sect{MORE DP PROBLEMS}
+
+\textbf{Coin Change (min coins):}
+
+$C[i] = \begin{cases} 
+0 & \text{if } i=0 \\ 
+\infty & \text{if } i<0 \\ 
+\min_{c \in \text{coins}}(1 + C[i-c]) & \text{if } i>0 
+\end{cases}$
+
+Time: $O(n \cdot \text{\# coins})$
+
+\textbf{Coin Change (count ways):}
+
+$W[i][j] = \begin{cases} 
+1 & \text{if } i=0 \\ 
+0 & \text{if } j<0 \text{ or } (i>0, j=0) \\ 
+W[i-1][j] + & \\
+\quad W[i][j-\text{coins}[i-1]] & \text{else} 
+\end{cases}$
+
+\textbf{Longest Increasing Subsequence:}
+
+$L[i] = 1 + \max\{L[j] : j < i, A[j] < A[i]\}$
+
+Naive: $O(n^2)$, Optimized: $O(n\log n)$
+
+\textbf{Subset Sum:}
+
+$S[i][j] = \begin{cases} 
+\text{true} & \text{if } j=0 \\ 
+\text{false} & \text{if } i=0, j>0 \\ 
+S[i-1][j] & \text{if arr}[i-1] > j \\ 
+S[i-1][j] \text{ OR } & \\
+\quad S[i-1][j-\text{arr}[i-1]] & \text{else} 
+\end{cases}$
+
+Time: $O(n \cdot \text{sum})$
+
+\textbf{Partition Problem (equal sum):}
+
+Special case of subset sum where $j = \text{total}/2$
+
+\textbf{Maximum Subarray Sum (Kadane):}
+
+$\text{max\_ending}[i] = \max(A[i], \text{max\_ending}[i-1] + A[i])$
+
+Time: $O(n)$, not typical DP but useful!
+
+\textbf{Egg Drop:}
+
+$E[n][k] = 1 + \min_{1 \leq x \leq k}(\max(E[n-1][x-1], E[n][k-x]))$
+
+$n$ eggs, $k$ floors
+
+\sect{RECURRENCE SOLVING METHODS}
+
+\textbf{Substitution Method:}
+1. Guess the form $T(n) = O(f(n))$
+2. Use induction to prove it
+3. Find constants that work
+
+Example: $T(n) = 2T(n/2) + n$
+
+Guess: $T(n) \leq cn\log n$
+
+IH: $T(k) \leq ck\log k$ for $k < n$
+
+$T(n) = 2T(n/2) + n \leq 2c(n/2)\log(n/2) + n$
+$= cn\log(n/2) + n = cn(\log n - 1) + n$
+$= cn\log n - cn + n = cn\log n - (c-1)n$
+$\leq cn\log n$ if $c \geq 1$
+
+\textbf{Iteration Method:}
+
+Expand recurrence multiple times:
+
+$T(n) = T(n-1) + n$
+$= T(n-2) + (n-1) + n$
+$= T(n-3) + (n-2) + (n-1) + n$
+$= T(1) + 2 + 3 + \cdots + n = \Theta(n^2)$
+
+\textbf{Change of Variables:}
+
+For $T(n) = 2T(\sqrt{n}) + \log n$:
+
+Let $m = \log n$, $n = 2^m$
+
+$S(m) = 2S(m/2) + m \Rightarrow S(m) = O(m\log m)$
+
+$T(n) = O(\log n \cdot \log\log n)$
+
+\sect{DIVIDE \& CONQUER EXAMPLES}
+
+\textbf{Finding Max \& Min:}
+
+$T(n) = 2T(n/2) + 2 = O(n)$
+
+Comparisons: $\frac{3n}{2} - 2$
+
+\textbf{Closest Pair of Points:}
+
+1. Sort by x-coordinate: $O(n\log n)$
+2. Divide into left/right halves
+3. Find min distance $\delta$ in each half
+4. Check middle strip $O(n)$
+
+$T(n) = 2T(n/2) + O(n) = O(n\log n)$
+
+\textbf{Karatsuba Multiplication:}
+
+$xy = (10^m a + b)(10^m c + d)$
+$= 10^{2m}ac + 10^m(ad+bc) + bd$
+$= 10^{2m}ac + 10^m((a+b)(c+d)-ac-bd) + bd$
+
+3 multiplications instead of 4!
+
+$T(n) = 3T(n/2) + O(n) = O(n^{1.585})$
+
+\textbf{Quick Select (kth element):}
+
+Average: $O(n)$, Worst: $O(n^2)$
+
+Randomized pivot gives $O(n)$ expected
+
+\sect{GREEDY VS DP}
+
+\textbf{Greedy:} Make locally optimal choice
+
+Works when: greedy choice property + optimal substructure
+
+Examples: Dijkstra, Huffman coding, activity selection
+
+\textbf{DP:} Try all possibilities, remember results
+
+When: overlapping subproblems + optimal substructure
+
+Need DP when greedy fails (e.g., 0-1 knapsack)
+
+\sect{PROOF TECHNIQUES}
+
+\textbf{Loop Invariant:}
+1. \textbf{Initialization:} True before first iteration
+2. \textbf{Maintenance:} If true before iteration, remains true after
+3. \textbf{Termination:} When loop ends, invariant gives correctness
+
+\textbf{Exchange Argument (for greedy):}
+
+Show any optimal solution can be transformed to use greedy choice without losing optimality
+
+\textbf{Cut-and-Paste (for DP):}
+
+Show if solution isn't optimal, can "cut" and "paste" better subsolution, contradiction
+
+\sect{SPACE OPTIMIZATION TRICKS}
+
+\textbf{2D to 1D DP:}
+
+If $\text{dp}[i]$ only depends on $\text{dp}[i-1]$, use two 1D arrays or single array with careful iteration
+
+Example: LCS space from $O(mn)$ to $O(\min(m,n))$
+
+\textbf{Divide \& Conquer DP:}
+
+When recurrence has special structure, can reduce from $O(n^2)$ to $O(n\log n)$
+
+\sect{USEFUL MATH IDENTITIES}
+
+$\sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6} = \Theta(n^3)$
+
+$\sum_{i=0}^{\log n} 2^i = 2^{\log n + 1} - 1 = 2n - 1 = \Theta(n)$
+
+$\log(n!) = \Theta(n\log n)$ (Stirling)
+
+$\binom{n}{k} = \frac{n!}{k!(n-k)!}$, $\binom{n}{k} = \binom{n}{n-k}$
+
+$H_n = \sum_{i=1}^n \frac{1}{i} = \Theta(\log n)$ (harmonic)
+
+$a^{\log_b n} = n^{\log_b a}$
+
+\sect{PROBLEM-SOLVING STRATEGIES}
+
+\textbf{For DP problems:}
+1. Try small examples by hand
+2. Identify what decisions to make
+3. Define state (what info needed?)
+4. Write recurrence with all cases
+5. Determine base cases carefully
+6. Check order of computation
+7. Trace through example
+
+\textbf{For D\&C problems:}
+1. How to split problem?
+2. How many subproblems?
+3. What size are they?
+4. How to combine?
+5. Write recurrence
+6. Apply Master Theorem
+
+\textbf{For recurrences:}
+1. Identify pattern (divide by constant? subtract constant?)
+2. Try Master Theorem first
+3. If doesn't fit, try substitution or iteration
+4. Verify with small cases
+
+\sect{EXAM STRATEGY TIPS}
+
+- Read all problems first, do easiest first
+- Show your work for partial credit
+- Write recurrence before pseudocode
+- Label base cases clearly
+- Check off-by-one errors
+- For proofs: state what you're proving, use clear IH
+- Time check: ~90min $\div$ problems
+- If stuck: write recurrence/what you know
+
+\sect{QUICK REFERENCE TABLE}
+
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Algorithm} & \textbf{Time} & \textbf{Space} \\
+\hline
+Binary Search & $O(\log n)$ & $O(1)$ \\
+Merge Sort & $O(n\log n)$ & $O(n)$ \\
+Quick Sort & $O(n\log n)$ avg & $O(\log n)$ \\
+Fibonacci (DP) & $O(n)$ & $O(n)$ \\
+LCS & $O(mn)$ & $O(mn)$ \\
+0-1 Knapsack & $O(nW)$ & $O(nW)$ \\
+Edit Distance & $O(mn)$ & $O(mn)$ \\
+Matrix Chain & $O(n^3)$ & $O(n^2)$ \\
+\hline
+\end{tabular}
+
+\sect{INDEXING REMINDERS}
+
+- Arrays: 0-indexed or 1-indexed? Stay consistent!
+- DP tables: often 0-indexed with row/col 0 for base cases
+- String problems: $s[1..n]$ vs $s[0..n-1]$
+- When reconstructing solution, trace backwards carefully
+
+\end{multicols}
+\end{document}
