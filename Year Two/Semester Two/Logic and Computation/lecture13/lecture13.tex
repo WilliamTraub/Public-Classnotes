@@ -96,7 +96,7 @@ let f () =
 let _ = f ()
 \end{lstlisting}
 The new functions have signatures ref $: a' \to a'$ ref, ! $: 'a \: ref \to 'a$, and $(:=) : 'a \: ref \to 'a \to $ unit.
-
+\\
 Included are a few excercises to learn how references work.
 \begin{lstlisting}
 let test () =
@@ -109,3 +109,12 @@ let test () =
   f 2
 \end{lstlisting}
 This ignores the final let y and evaluates to 13. 
+
+\begin{lstlisting}
+  let f = 
+  let y = ref 0 in
+    fun () ->
+      y := !y + 1;
+      !y
+\end{lstlisting}
+This counts up a value for y and increases each function call.
