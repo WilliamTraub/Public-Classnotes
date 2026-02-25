@@ -1,0 +1,68 @@
+\section{References and Aliasing}
+In OCaml, reference cells are type-invariant after they are created. 
+\\
+We can think as references as a pointer to a memory cell on the heap. Aliasing just closes the value with the same address.
+\\
+When comparing two references with (=), the operator checks if their values are the same. We might want to treat them differently.
+\begin{lstlisting}
+let f (x : int ref) (y : int ref) =
+  y := 0;
+  !x
+\end{lstlisting}
+This function is intended to:
+\begin{itemize}
+  \item return contents of x
+  \item modify y
+  \item don't modify x
+\end{itemize}
+But when we call \textit{let $\_$ = f x x} this will reset x which we don't want. This is a natural solution.
+\begin{lstlisting}
+let f (x : int ref) (y : int ref) int option =
+  if x = y
+  then None
+  else (y := 0; Some(!x))
+\end{lstlisting}
+This code is sound as it follows the requirements but will return None if we pass two different references with the same value. 
+\\
+Instead of structural equality, we need physical equality (==) to check if the addresses are the same.
+\begin{lstlisting}
+let f (x : int ref) (y : int ref) int option =
+  if x == y
+  then None
+  else (y := 0; Some(!x))
+\end{lstlisting}
+It becomes challenging to handle these things using logic.
+\begin{itemize}
+  \item References may be mutated over test cases
+  \item You must reason about the addresses and values
+  \item Side effect that happens over time.
+\end{itemize}
+Monads??
+\\
+In order to test the above function, we need to make a wrapper function with an inputed edge case.
+\begin{lstlisting}
+let fwrapper (x : int) (y : int) (alias : bool) 
+: (int option * int * int) =
+  let (xref, yref) =
+    let xref = ref x in 
+    if alias
+    then (xref, xref)
+    else 
+      let yref = ref y in
+      (xref, yref)
+  in
+  let o = (f xref yref) in
+  (o, !xref, !yref)
+\end{lstlisting}
+The property now becomes
+\begin{lstlisting}
+let prop_mut (ix, iy, alias) : bool =
+  let (o, fx, fy) = fwrapper ix iy alias in
+  if alias
+  then o = None && ix = fx && iy = fy
+  else 
+    match o with
+    | None -> false
+    | Some v -> v = fx && fy = 0 && fx = ix
+\end{lstlisting}
+We still have an issue with the side effect over time problem which we might want to test. It could be important to ensure that we are maintaining invariants dynamically.
