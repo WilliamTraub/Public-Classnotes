@@ -1,0 +1,64 @@
+\section{3/9}
+\subsection{What is a program?}
+\begin{definition}
+  A \textbf{Program} is a description of something computable.
+\end{definition}
+We have the question of \textunderscore{Syntax} vs. \textunderscore{Semantics}.
+\\
+Often times we talk about programming with turing-complete systems but this is not always true. Take English for example.
+\\
+English is comprised of sentences. 
+\begin{lstlisting}
+Sentence := (NounPhrase, VerbPhrase)
+  NounPhrase := (determiner option, adjective option, noun)
+  VerbPhrase := Simple of (verb, np option, adverb)
+    | Rec (verb, VerbPhrase)
+\end{lstlisting}
+We have the sentence "Alice speaks" where Alice : noun and speaks : verb.
+\\
+Another: "(a black cat){NP} (can catch mice){VP}"
+\\\\
+This can be represented as a syntax tree \url{https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fwww.nltk.org%2Fbook%2Fch08.html&ved=0CBYQjRxqFwoTCIiemKmyk5MDFQAAAAAdAAAAABAI&opi=89978449}
+\\
+OCaml is also a language and also can be evaluated using a syntax tree.
+
+\subsection{Creating a Calculator Language}
+To create a language, you should start with examples of elements in the language.
+\\
+We have Lang Calc. with "*", "+", and $n \in \mathbb{N}$. 
+\\
+This can be specified in an OCaml type.
+\begin{lstlisting}
+type expr =
+  | Nat of int
+  | Add of expr * expr
+  | Mul of expr * expr
+\end{lstlisting}
+We might want to make a serializer, a way to take this AST and turn it into a string.
+\begin{lstlisting}
+let rec string_of_expr e =
+  match e with
+  | Nat i -> string_of_int i
+  | Add (l, r) -> string_of_expr l ^ " + " ^ string_of_expr r
+  | Mul (l, r) -> string_of_expr l ^ " * " ^ string_of_expr r
+\end{lstlisting}
+If we have the statement string_of_expr (Mul(Nat 3, Add(Nat 4, Nat 2))) we get "3 * 4 + 2", but this ignores the (4 + 2). We need a round-trip property: 
+\begin{lstlisting}
+let rec string_of_expr e =
+  match e with
+  | Nat i -> string_of_int i
+  | Add (l,r) -> "(" ^ string_of_expr l ^ " + " ^ string_of_expr r ^ ")"
+  | Mul (l,r) -> "(" ^ string_of_expr l ^ " * " ^ string_of_expr r ^ ")"
+\end{lstlisting}
+\newpage
+To parse a string in this language we create the token type
+\begin{lstlisting}
+type token =
+  | NAT of int
+  | PLUS
+  | TIMES
+  | LPAREN
+  | RPAREN
+  | EOF
+\end{lstlisting}
+To specify our roundtrip property, $\forall e \in$ Calc, parse (string_of_expr e)
