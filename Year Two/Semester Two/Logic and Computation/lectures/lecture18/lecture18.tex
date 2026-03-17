@@ -1,0 +1,17 @@
+\section{3/16 - Intro to Type Checking}
+\subsection{What is a Type}
+We might think of a type as a set, but this is not enough. A type represents a behavior predictibly.
+\\
+Types came about because of Russel's Paradox, showing inconsistency of the set of sets. 
+\\
+We might define the structure $\{ foo : int \}$ which nests the integers.
+\\
+In our current interpreter, we have runtime errors when a function is given the wrong inputs.
+\\
+We have the type $e : bool$ which is a collection of many things that finally end of as a boolean such as (if 1 = 2 the false else false).
+\\
+To add types we create:
+\begin{lstlisting}
+  type ty = TNat | TBool
+\end{lstlisting}
+In order to make this type-safe, we first need to make a typeof function. We don't want to throw a runtime error so instead we make our type checker an option that returns None if there is a type error.

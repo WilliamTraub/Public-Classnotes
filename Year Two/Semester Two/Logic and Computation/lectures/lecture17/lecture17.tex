@@ -1,0 +1,19 @@
+\section{3/12 - Programming Languages, Cont.}
+We must make design choices when creating programming languages. 
+\\
+Currently, our language can do simple statements, but we now want to add binders:
+\begin{lstlisting}
+  let x = 2 in 
+  let y = x * x in
+  y
+\end{lstlisting}
+There are a few ways to do this. Firstly, we must describe the kind of expressions we want. We also would like to be able to use free variables such as
+\begin{lstlisting}
+  let x = 5 in 
+  y
+\end{lstlisting}
+This has three parts: the variable, body and the bind location. We have the functions Let("x", Nat Z, e1) and $x \to$ Var "x". 
+
+\begin{note}
+The next few parts of this lecture very heavily rely on the code from last class which I don't have :(
+\end{note}
