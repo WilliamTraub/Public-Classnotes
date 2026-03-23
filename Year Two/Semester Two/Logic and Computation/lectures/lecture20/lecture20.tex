@@ -1,0 +1,71 @@
+\section{3/23 - Compiling}
+Previously we looked at parse trees of OCaml files using ocamlc, but now we can do some operations on our tree.
+\begin{enumerate}
+  \item -dlambda turns the tree into a racket-like lambda expression
+  \item -dinstr transforms the tree into low-level machine instructions
+  \item -S turns the tree into assembly
+\end{enumerate}
+We have a pipeline from parsing (creating an AST) $\to$ typechecking $\to$ an intermediate representation with some optimizations $\to$ instructions that are runnable in some VM $\to$ bytecode or assembly which is runnable on your machine.
+\\
+Today we are going to build a compiler, but first we must understand the instruction stage using a stack language.
+\begin{definition}
+  A \textbf{Stack Language} 
+\end{definition}
+We have our calc language and we want to convert elements to push instructions, i.e. (Calc: 2 $\overset{compiling}{\to}$ [Push 2] $\mapsto 2 : []$)
+\\
+Calc: 2 + 3 $\to$ [Push 2, Push 3, Apply Plus] $\mapsto 3 : 2 : [] \overset{"apply \: plus"}{\to} 5 : []$
+\\
+$\langle$ "3 + 2", [], $\{\} \rangle$
+\\ 
+$\mapsto \langle [Push 3, Push 2, App +], [], \{\} \rangle 
+\\
+\mapsto \langle [Push 2, App +], 2:[], \{\}\rangle
+\\
+\mapsto \langle [App +], 3:2:[], \{\}\rangle 
+\\
+\mapsto \langle [], 5:[],\{\}\rangle$
+\\
+Say we have $\langle$ "let x = 5 in x", [], $\{\} \rangle
+\\
+\mapsto \langle [Push \: 5; Set \:"x"; Get \: "x"], [], \{\}\rangle
+\\
+\mapsto \langle [Set \:"x"; Get \: "x"], 5:[], \{\}\rangle
+\\
+\mapsto \langle [Get \: "x"], 5:[], \{x \mapsto 5\}\rangle
+\\
+\mapsto \langle [], 5:[], \{x \mapsto 5\}\rangle
+$
+To create this we need to start with a semantic domain:
+\begin{lstlisting}
+  type value = int
+\end{lstlisting}
+As well as operations:
+\begin{lstlisting}
+  type op = | Add | Mul | Or | And | EQ
+\end{lstlisting}
+As well as some instructions:
+\begin{lstlisting}
+type instr =
+  | Push of value
+  | PrimApp of op
+  | Set of string
+  | Get of string
+
+  (* TODO: needed for ite *)
+  | Jump of int
+  | JumpIfNotZero of int
+\end{lstlisting}
+Note that we use strings for variable names which is not scalable.
+\\
+To evalueate we first need some instructions:
+\begin{lstlisting}
+let eval_op (op : op) (args : value list) : value =
+  match (op, args) with
+  | (Add, [n1; n2]) -> (n1 + n2)
+  | (Mul, [n1; n2]) -> (n1 * n2)
+  | (And, [b1; b2]) -> (if b1 = 1 && b2 = 1 then 1 else 0)
+  | (Or, [b1; b2]) -> (if b1 = 1 || b2 = 1 then 1 else 0)
+  | (LT, [n1; n2]) -> (if n1 < n2 then 1 else 0)
+  | (EQ, [e1; e2]) -> (if e1 = e2 then 1 else 0)
+  | _ -> failwith "runtime error: arity mismatch or unexpected argument"
+\end{lstlisting}
