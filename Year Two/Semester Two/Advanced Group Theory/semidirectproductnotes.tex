@@ -1,0 +1,182 @@
+\documentclass{article}
+
+\usepackage{bookmark}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{babel}
+\usepackage[shortlabels]{enumitem}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Excercise}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{recall}{Recall}
+
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\newcommand{\tr}{\textbf{True}}
+\newcommand{\fl}{\textbf{False}}
+
+\title{Advanced Group Theory Various Notes}
+\author{William Traub}
+\date{March 2026}
+\begin{document}
+\maketitle
+\section{Semi-direct product}
+This is motivated by the possible groups with order 18.
+\begin{definition}
+  Direct Product:
+  \begin{itemize}
+    \item Internal Direct Product
+    \begin{enumerate}
+      \item $N \trianglelefteq G, H \trianglelefteq G$
+      \item $N \cap H = \{ e\}$
+      \item $NH = G$
+      \item If G is internal direct product of N, H, then $G \simeq N \times H$ and G is isomorphic to the external direct product of H and H.
+      \item There exists the maps $\{e\} \to N \leftrightarrow_{p_1}^{i_1} N \times H$
+    \end{enumerate}
+    \item Semi direct product
+    \begin{itemize}
+      \item Internal semi direct
+      \begin{enumerate}
+        \item $N \trianglelefteq G$, $H \leq G$
+        \item $N \cap H = \{e\}$
+        \item $NH=G$
+        \item Theorem: If G is internal semidirect product N,H then it is isomorphic to external semidirect product $H \simeq N \rtimes H, H \to^{\psi} Aut(N)$.
+        \end{enumerate}
+        \item External semidirect
+        \begin{enumerate}
+          \item $(a,b)(a',b') = (a (\psi (b))(a'), bb')$
+          \item $N \overset{i_1}{\to} N \times H \underset{i_2}{\overset{p_2}{\leftrightarrow}} H$
+        \end{enumerate}
+        \item Proof: Suppose D is an internal semidirect product $G \overset{f}{\to} N \rtimes H$. $f(g)^3 = f(nh) = (n, h)$. $f(g_1 g_2) \overset{?}{=} f(g_1)f(g_2)$. $g_1 = n_1 h_1, g_2 = n_2h_2 \implies g_1g_2 = n_1h_1n_2h_2$. Automorphism N where 
+        \\
+        $N \overset{\psi}{\to} N$
+    \end{itemize}
+  \end{itemize}
+\end{definition}
+\newpage
+\section{3/30}
+\subsection{Tangent Spaces}
+Let $\mathbb{R} \overset{\varphi}{\to} \mathbb{R}^n$ be a differentiable function. Then $\varphi(t) (\varphi_1(t), \dots \varphi_n(t))$.
+\begin{definition}
+  The \underline{Tangent Vector} (velocity vector) to the path $\varphi(t)$ at the point $\varphi(t) (\varphi_1(t), \dots \varphi_n(t))$ is $\varphi'(t) (\varphi'_1(t), \dots \varphi'_n(t))$
+\end{definition}
+\begin{definition}
+  Let $x \in S$, let $v$ be a vector in $\mathbb{R}^n$. Then $v$ is a tangent vector to S at the point $x \in S$ if there exists a diffferentiable function $\mathbb{R} \overset{\varphi}{\to} \mathbb{R}^n$ such that:
+  \begin{enumerate}
+    \item $\varphi(t) \subseteq S$
+    \item $\varphi(0) = x$
+    \item $\varphi'(0) = v$
+  \end{enumerate}
+\end{definition}
+\begin{definition}
+  Let $S \subset \mathbb{R}^n$ then S is a real algebraic set if there exists a polynomial function $\mathbb{R}^n \overset{f}{\to} \mathbb{R}$ such that S is the set of zeroes of f.
+\end{definition}
+\begin{remark}
+  Let $S \subseteq \mathbb{R}^n$ be an algebraic set given as zeroes of the polynomial f. Let $\mathbb{R} \overset{\varphi}{\to} \mathbb{R}^n$ be a differentiable funtion such that $\forall t \in \mathbb{R}, \varphi(t) \subset S$. Then:
+  \begin{itemize}
+    \item $(f \circ \varphi)(t) = 0$ 
+    \item $(f \circ \phi)' = 0$
+    \item $\frac{d(f\varphi)}{dt}(t) = \frac{\partial f}{\partial x_1}\phi'_1(t) + \dots + frac{\partial f}{\partial x_n}\phi'_n(t) = \nabla f \cdot \varphi'(t)$ (where $\nabla$ is the gradient)
+  \end{itemize}
+\end{remark}
+\begin{corollary}
+  Let $S \subset \mathbb{R}^n$ be an algebraic set given as the zeroes of a polynomial function f. If v is a tangent vector to $x \in S$ the c is perpendicular to the gradient of f at that point.
+\end{corollary}
+\begin{example}
+  Let $S \subseteq \mathbb{R}^2$ be depicted as $S := \{ (x_1, x_2) \in \mathbb{R}^2 \vert x_1^2 + x_2^2 = 1 \}$. 
+  \\
+  S is the set of zeroes of $f : \mathbb{R}^2 \to \mathbb{R}, f(x_1, x_2) = x_1^2 + x_2^2 - 1$.
+  \\
+  S is an algebraic set $\mathbb{R} \overset{\varphi}{\to} \mathbb{R}^2 \overset{f}{\to} \mathbb{R}$. $\varphi(t) = (\varphi_1(t), \varphi_2(t)) = (x_1, x_2)$
+  \\
+  $\varphi'(t) = (\varphi'_1(t), \varphi'_2(t)), \nabla f = (\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2})$
+  \\\\
+  If $\varphi(t) = (\cos(4t), \sin(4t))$. $\varphi'(t) = (-4\sin(4t), 4\cos(4t)), \nabla f = (2x_1, 2x_2)$.
+  \\
+  For the point $t = (1, 0), \varphi(t) = 0, \varphi'(0) = (0, 4), \nabla f = (2, 0)$. Thus the gradient vector is perpendicular to the tangent space.
+\end{example}
+\newpage
+\subsection{Infinitesimal Tangents}
+\begin{definition}
+  \underline{Formal infinitesimal element} $\varepsilon$ satisfies $\varepsilon^2 = 0$.
+\end{definition}
+Let $E := \{a + b\epsilon \vert a, b \in \mathbb{R}\}$
+\begin{remark}
+  Many elements in E do not have multiplicitive inverses. E is a \underline{ring} with operations $(E, +, \cdot)$
+\end{remark}
+\begin{definition}
+  A \underline{ring} is $(R, +, \cdot)$ such that:
+  \begin{enumerate}
+    \item $(R, +)$ is an abelian group
+    \item $(R, \cdot)$ is a semigroup
+    \item Distributive law: $\forall a, b, c \in R, (a + b)c = ac + bc \land a(b + c) = ab + ac$
+    
+  \end{enumerate}
+\end{definition}
+\begin{remark}
+  If $\forall a, b \in R, ab = ba$ then R is called a \underline{commutative ring}, otherwise it is a \underline{noncommutative ring}.
+\end{remark}
+\begin{remark}
+  If $(R, \cdot)$ is a monoid then we call R a \underline{ring with unity}
+\end{remark}
+\begin{remark}
+  If $R \setminus \{0\}, \cdot$ is a group then if
+  \begin{itemize}
+    \item R is commutative: R is a \underline{field}
+    \item R is noncommutative: R is a \underline{division ring}
+  \end{itemize}
+\end{remark}
+\begin{example}
+  $M_n(\mathbb{R})$ is a noncommutative ring.
+\end{example}
+\begin{definition}
+  Let $x \in \mathbb{R}^n$, let $\varepsilon$ be a formal infinitesimal element. Let v be a vector in $\mathbb{R}^n$. Then an infinitesimal change of x in the direction of v is $x + \varepsilon v$.
+\end{definition}
+\begin{remark}
+  The Taylor expansion $f(x + \varepsilon v) = f(x) + \frac{\partial f}{\partial x_1}(x)(\varepsilon v_1) + \dots + \frac{\partial f}{\partial x_n}(x)(\varepsilon v_n)$
+  \\
+  $f(x + \varepsilon v) = \nabla f \cdot (\varepsilon v)$
+\end{remark}
+\begin{proposition}
+  Let $S \subseteq \mathbb{R}^n$ be an algebraic set given by zeroes of the polynomial f. Let $x \in S$. Let v be a vector in $\mathbb{R}^n$. Then $\nabla f \cdot (\varepsilon v) = 0 \iff f(x + \varepsilon v) = 0$
+\end{proposition}
+\begin{definition}
+  With the definitions of the previous proposition, v is called an \underline{infinitesimal tangent vector} at x to S if $f(x + \varepsilon v) = 0$
+\end{definition}
+\begin{remark}
+  (still continuing with previous definitions) if v is tangent of x to S, then (by corollary 5) $\nabla f \cdot v = 0 \iff f(x + \varepsilon v) = 0 \iff $ v is an infinitesimal tangent vector.
+\end{remark}
+\subsection{Lie Algebras}
+\begin{recall}
+  Let G be a linear group (a subgroup of $Gl_n(\mathbb{R})$). Then the associated lie algebra $\mathfrak{G}$ is the tangent space to G at the identity matrix I.
+\end{recall}
+\begin{remark}
+  If G is a linear group:
+  \begin{itemize}
+    \item Any tangent to G at $x\in G$ is $\varphi'(0)$ which is given $\mathbb{R} \overset{\varphi}{\to} Gl_n(\mathbb{R})$ where $\varphi$ is differentiable such that $\varphi(t) \subset G, \varphi(0) = x.$
+    \item All one parameter subgroups of $Gl_n(\mathbb{R})$ are of the form $\varphi(t) = e^{tA}$ for some $A \in M_n(\mathbb{R})$. With some simple calculus we can find $\varphi'(0) = A$.
+    \item So the lie algebra $\mathfrak{G}$ associated to the lie group G, consists of all of the matricies A such that $\varphi(t) = e^{tA} \in G$
+  \end{itemize}
+\end{remark}
+\begin{proposition}
+  $Sl_n(\mathbb{R})$ and $O_n(\mathbb{R})$ are algebraic sets.
+\end{proposition}
+\begin{proof}
+  For n=2, $Sl_2(\mathbb{R}) = \{A \in M_2(\mathbb{R}) \vert \: det A = 1 \}$.
+  \\
+  We take the function $f: \mathbb{R}^4 \to \mathbb{R}, f(x_1, x_2, x_3. x_4) = x_1x_4 - x_2x_3 - 1$ then $Sl_2(\mathbb{R})$ is the set of zeroes of f.
+\end{proof}
+\end{document}
