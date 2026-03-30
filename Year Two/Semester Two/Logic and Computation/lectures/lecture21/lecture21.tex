@@ -1,0 +1,46 @@
+\section{Formalizing Compiler Correctness and Failiures of PBT}
+In the past, we have written a calculator language, a stack language, and a compiler to lower the first into the second.
+\begin{question}
+  How do we know a program in our calculator language is correct?
+\end{question}
+We have a well-typed function that confirms the correctness of a program.
+\begin{question}
+  How do we ensure programs in the stack language are correct?
+\end{question}
+Our compile function must be surjective ($f: A \to B, \forall b \in B, \exists a \in A, f(a) = b$).
+\\
+One way to define this within the context of our compiler is: $\forall (e : Calc)$, (eval-opt [] e : value option) = Some x $\implies$ Stack.run(compile e) = conv (eval [] e)
+\begin{lstlisting}
+let eval_succeeds e : bool =
+  try
+    let v = eval Strmap.empty e in true
+  with _ -> false
+
+let conv v =
+  match v with
+  | Nat v -> v
+  | Bool false -> 0
+  | Bool true -> 1
+
+let (=>) a b_thk = if a then b_thk () else true  
+let compiler_correct (e : CalcLang.expr) =
+  (eval_succeeds e) =>
+  (fun () -> execute (compile e) = conv (CalcLang.eval StrMap.empty e))
+\end{lstlisting}
+We have our statement of correctness, but we now need to do some extra steps for PBT:
+\begin{enumerate}
+  \item A testing harness
+  \item Generators
+\end{enumerate}
+\begin{lstlisting}
+let _ =
+  let nsamples = 100 in
+  match forall ~trials:nsamples gen_expr compiler_correct with
+  | Some c -> print_endline "found counterexample"
+  | None -> "Passes PBT"
+\end{lstlisting}
+This suggests that our compiler works but there are some issues with this assumption. There could be unfound counterexamples within the test cases. We also assume the correctness of the generators.
+\\
+Because our data is tree-shaped and thus quite complex, it is quite difficult to generate relevant elements. With a nicer testing harness we would be able to see that the majority of our samples have depth $\leq 2$.
+\\
+One way to fix this is just by generating more samples but this does not scale. A better way to do this would be to inductively prove that it works.
