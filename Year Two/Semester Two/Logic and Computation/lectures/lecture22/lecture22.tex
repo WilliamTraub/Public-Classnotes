@@ -1,0 +1,90 @@
+\section{4/1 - Compiler Optimization}
+In the previous lecture, we tested that the compiler was valid. Optimizing the compiler is similar.
+\\
+A compiler has multiple phases:
+\begin{enumerate}
+  \item parse
+  \item desugar
+  \item typechecking/inference
+  \item uniquify
+  \item lowering
+\end{enumerate}
+But we could add in an optimization step that has a self loop
+\begin{enumerate}
+  \item parse
+  \item desugar
+  \item typechecking/inference
+  \item uniquify
+  \item \textbf{codegen}
+  \item lowering
+\end{enumerate}
+OCaml uses Superoptimization, a pass to turn a program into the smallest possible representation.
+\\
+We plan to implement a compiler pass on the level of Calc in order to make our tree parsing more efficient. This code is built upon the languages from previous lectures.
+\\
+In our CalcLang we have expressions that look like this:
+\begin{lstlisting}
+let x = 1 + 2 in x
+let ex0 = Let("x", App(Add, [Val (Nat 1); Val (Nat 2)]), Var "x")
+\end{lstlisting}
+One way we could optimize this is simply by performing the substitution and evaluation to get $3$. We can start by reducing our statically identifiable operations.
+\begin{lstlisting}
+let constfold_op (op, args) : CalcLang.expr =
+  match op, args with
+  | (Add, [Val (Nat n); Val (Nat m)]) -> Val (Nat (n + m))
+  | (Add, [Val (Bool n); Val (Bool m)]) -> failwith "UNREACHABLE"
+\end{lstlisting}
+This works for this first simple case but it falls apart for the second one with a mistake. Though our typecheck should stop this but in the interest of simplicity we should learn how to deal with it seperately.
+\newpage
+Instead of operating over expressions, we might want to pass in a function.
+\begin{lstlisting}
+let constfold (e : expr) : expr =
+  match e with 
+  | Val v ->
+  | Var x ->
+  | Let (x, e1, e2) -> Let (x, constfold e1, constfold e2)
+  | App (op, args) ->
+    (match op, args with
+    | (Add, [Val (Nat n); Val (Nat m)]) -> Val (Nat (n + m))
+    | (Mul, [Val (Nat n); Val (Nat m)]) -> Val (Nat (n * m))
+    | (Or, [Val (Bool n); Val (Bool m)]) -> Val (Nat (n || m))
+    (* simply follow the eval op for the rest *)
+    | _ -> App (op, List.map constfold args))
+  | ITE (g, t, f) -> ITE(constfold g, constfold t, constfold f)
+\end{lstlisting}
+This code only works in the case where there is only one operation. With compound operations (such as 1 + (2 * 3)) it will only apply once.
+\\
+We want to continuously optimize our expression until we reach a fixed point.
+\begin{lstlisting}
+let rec optimize (opt : expr -> expr) (e : expr) : expr = 
+  let e' = opt e in
+  if e' = e
+  then e
+  else optimize opt e'
+\end{lstlisting}
+Once more we are faced with the problem of correctness. We could pass a trivial function (i.e. f(x)=0) but this doesn't preserve meaning.
+\\
+We could define a property to state our pass is valid $\forall e : Calc, e = constfold e$.
+\\
+We can also do some lazy boolean analysis:
+\begin{lstlisting}
+  | ITE (Val (Bool true), t, f) -> constfold t
+  | ITE (Val (Bool false), t, f) -> constfold f
+\end{lstlisting}
+Now to optimize substitution. In a let binder we are looking for a case that looks like $e'[x \mapsto e]$.
+\begin{lstlisting}
+let rec substitute (x : string) (e : expr) (e' : expr) : expr =
+  match e with
+  | Val v -> Val v
+  | Var x' -> if x' = x then e else Var x'
+  | Let (x, e1, e2) -> 
+    if x = x' then Let (x, e1, e2)
+    else Let (x', substitute x e1, substitute x e2)
+  | App (op, args) -> App(op, List.map (fun arg -> substitute x e arg))
+  | ITE (g, t, f) -> ITE(substitute x e g, substitute x e t, substitute x e f)
+\end{lstlisting}
+We can now change our constfold function to use this in the Let case:
+\begin{lstlisting}
+  | Let (x, Val v, e2) -> substitute c (Val v) e2
+  | Let (x, e1, e2) -> Let (x, constfold e1, constfold e2)
+\end{lstlisting}
